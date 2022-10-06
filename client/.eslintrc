@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier"
+    ],
+    "parserOptions": {
+        "parser": "@babel/eslint-parser",
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "requireConfigFile": false,
+        "presets": [
+            "@babel/preset-react"
+        ]
+    },
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "react/function-component-definition": [2, {
+            "namedComponents": "arrow-function"
+        }]
+    }
+}
