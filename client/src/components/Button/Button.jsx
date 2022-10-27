@@ -10,10 +10,13 @@ const StyledButton = styled.button`
     transition-duration: 500ms;
     transition-property: transform;
     font-size: 12pt;
-    font-weight: 500;
+    font-weight: 600;
     &:hover {
         transform: scale(1.05);
         cursor: pointer;
+    }
+    &:active {
+        transform: scale(1);
     }
 `;
 

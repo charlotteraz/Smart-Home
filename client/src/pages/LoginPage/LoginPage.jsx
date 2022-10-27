@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Colors from 'helpers/colors';
 import TextField from 'components/TextField';
@@ -41,6 +42,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const validateCredentials = () => {
         if (email.length === 0 || password.length === 0) {
@@ -48,6 +50,9 @@ const LoginPage = () => {
             return;
         }
         setError(null);
+        // TODO: Pass 'userId' returned from login query.
+        window.sessionStorage.setItem('userId', 1);
+        navigate('/home');
     };
 
     return (
