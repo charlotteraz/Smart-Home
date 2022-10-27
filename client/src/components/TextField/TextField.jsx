@@ -1,4 +1,4 @@
-import Colors from 'helpers/colors';
+import Colors from 'constants/colors';
 import React from 'react';
 import styled from 'styled-components';
 

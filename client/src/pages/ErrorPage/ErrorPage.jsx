@@ -1,5 +1,6 @@
 import { Strut } from 'components/Layout';
-import Colors from 'helpers/colors';
+import Colors from 'constants/colors';
+import Routes from 'constants/routes';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,7 +31,7 @@ const ErrorPage = () => {
             <h1>{message ?? 'Something went wrong!'}</h1>
             <Strut size={15} vertical />
             <h3>
-                Please click <Link to="/">here</Link> to login.
+                Please click <Link to={Routes.Login}>here</Link> to login.
             </h3>
         </Container>
     );

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Colors from 'helpers/colors';
+import Colors from 'constants/colors';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import { Strut } from 'components/Layout';
+import useSessionStorage from 'hooks/useSessionStorage';
+import Routes from 'constants/routes';
 
 const Container = styled.div`
     display: flex;
@@ -43,6 +45,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const sessionStorage = useSessionStorage();
 
     const validateCredentials = () => {
         if (email.length === 0 || password.length === 0) {
@@ -51,8 +54,8 @@ const LoginPage = () => {
         }
         setError(null);
         // TODO: Pass 'userId' returned from login query.
-        window.sessionStorage.setItem('userId', 1);
-        navigate('/home');
+        sessionStorage.setItem('userId', 1);
+        navigate(Routes.Home);
     };
 
     return (

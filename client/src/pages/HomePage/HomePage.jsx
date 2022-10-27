@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import * as RouterDom from 'react-router-dom';
 import Navbar from 'pages/HomePage/components/Navbar';
 import FloorPlanPage from 'pages/FloorPlanPage';
 import UserDataPage from 'pages/UserDataPage';
+import useSessionStorage from 'hooks/useSessionStorage';
+import Routes from 'constants/routes';
 
 const Container = styled.div`
     width: 100%;
@@ -11,18 +13,19 @@ const Container = styled.div`
 `;
 
 const HomePage = () => {
-    const navigate = useNavigate();
+    const navigate = RouterDom.useNavigate();
+    const sessionStorage = useSessionStorage();
     const [userId, setUserId] = useState(null);
 
     // Auto-shows the floorplan first
     useEffect(() => {
-        const sessionUserId = window.sessionStorage.getItem('userId');
+        const sessionUserId = sessionStorage.getItem('userId');
         if (sessionUserId) {
             setUserId(sessionUserId);
-            navigate('/home/floorplan');
+            navigate(Routes.FloorPlan);
         } else {
             setUserId(null);
-            navigate('/error', { state: { message: 'Session ended!' } });
+            navigate(Routes.Error, { state: { message: 'Session ended!' } });
         }
     }, []);
 
@@ -30,10 +33,10 @@ const HomePage = () => {
         <Container>
             <Navbar />
             <div>{userId}</div>
-            <Routes>
-                <Route path="/home/floorplan" element={<FloorPlanPage />} />
-                <Route path="/home/userdata" element={<UserDataPage />} />
-            </Routes>
+            <RouterDom.Routes>
+                <RouterDom.Route path={Routes.FloorPlan} element={<FloorPlanPage />} />
+                <RouterDom.Route path={Routes.UserData} element={<UserDataPage />} />
+            </RouterDom.Routes>
         </Container>
     );
 };
