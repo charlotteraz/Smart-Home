@@ -6,6 +6,8 @@ import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
 
 const Container = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
 `;

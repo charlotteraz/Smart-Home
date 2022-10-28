@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Room from './components/Room';
@@ -14,10 +14,43 @@ const FloorPlan = styled.div`
     position: relative;
     align-self: center;
     width: 95%;
-    height: 90%;
+    height: 95%;
     background-color: ${Colors.black};
     overflow: scroll;
-    scroll-padding: 50px;
+    border-radius: 10px;
+    opacity: 0;
+    // Add fade-in animation to allow Floor Plan view to center
+    animation: fadeIn 500ms ease-in-out 100ms forwards;
+    // Add right and bottom padding to scroll view
+    & > :after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: -100px;
+        bottom: -75px;
+        width: 1px;
+        height: 1px;
+    }
+    // Hide scrollbar
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    // Prevent highlighting
+    & > * {
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;
 
 // Temporary data
@@ -83,13 +116,13 @@ const ROOMS = [
                 y: 225,
             },
             {
-                deviceId: 4,
+                deviceId: 5,
                 name: 'Window 1',
                 x: 140,
                 y: 0,
             },
             {
-                deviceId: 5,
+                deviceId: 6,
                 name: 'Window 2',
                 x: 275,
                 y: 140,
@@ -141,25 +174,25 @@ const ROOMS = [
                 y: 135,
             },
             {
-                deviceId: 6,
+                deviceId: 7,
                 name: 'Window 2',
                 x: 750,
                 y: 200,
             },
             {
-                deviceId: 7,
+                deviceId: 8,
                 name: 'Window 3',
                 x: 0,
                 y: 115,
             },
             {
-                deviceId: 8,
+                deviceId: 9,
                 name: 'Front Door',
                 x: 0,
                 y: 50,
             },
             {
-                deviceId: 9,
+                deviceId: 10,
                 name: 'Back Door',
                 x: 650,
                 y: 0,
@@ -374,27 +407,36 @@ const ROOMS = [
     },
 ];
 
-// TODO:
-// 1. Add padding to the right and bottom of the FloorPlan
-// 2. Begin scroll x and scrool y at the halfway point
-// 3. Hide scrollbar
+const FloorPlanPage = () => {
+    const floorPlanElement = useRef();
 
-const FloorPlanPage = () => (
-    <Container>
-        <FloorPlan>
-            {ROOMS.map((room) => (
-                <Room
-                    key={room.roomId}
-                    name={room.name}
-                    x={room.x}
-                    y={room.y}
-                    width={room.width}
-                    height={room.height}
-                    devices={room.devices}
-                />
-            ))}
-        </FloorPlan>
-    </Container>
-);
+    // Set the FloorPlan view to the center
+    useEffect(() => {
+        const { scrollWidth, scrollHeight, clientWidth, clientHeight } = floorPlanElement.current;
+        floorPlanElement.current.scroll({
+            left: scrollWidth / 2 - clientWidth / 2,
+            top: scrollHeight / 2 - clientHeight / 2,
+            behavior: 'instant',
+        });
+    }, []);
+
+    return (
+        <Container>
+            <FloorPlan ref={floorPlanElement}>
+                {ROOMS.map((room) => (
+                    <Room
+                        key={room.roomId}
+                        name={room.name}
+                        x={room.x}
+                        y={room.y}
+                        width={room.width}
+                        height={room.height}
+                        devices={room.devices}
+                    />
+                ))}
+            </FloorPlan>
+        </Container>
+    );
+};
 
 export default FloorPlanPage;
