@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as RouterDom from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import Navbar from 'pages/HomePage/components/Navbar';
-import FloorPlanPage from 'pages/FloorPlanPage';
-import UserDataPage from 'pages/UserDataPage';
 import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
 
@@ -13,7 +11,7 @@ const Container = styled.div`
 `;
 
 const HomePage = () => {
-    const navigate = RouterDom.useNavigate();
+    const navigate = useNavigate();
     const sessionStorage = useSessionStorage();
     const [userId, setUserId] = useState(null);
 
@@ -33,10 +31,7 @@ const HomePage = () => {
         <Container>
             <Navbar />
             <div>{userId}</div>
-            <RouterDom.Routes>
-                <RouterDom.Route path={Routes.FloorPlan} element={<FloorPlanPage />} />
-                <RouterDom.Route path={Routes.UserData} element={<UserDataPage />} />
-            </RouterDom.Routes>
+            <Outlet />
         </Container>
     );
 };

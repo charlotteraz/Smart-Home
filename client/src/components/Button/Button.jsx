@@ -7,8 +7,7 @@ const StyledButton = styled.button`
     height: 45px;
     border-style: none;
     border-radius: 10px;
-    transition-duration: 500ms;
-    transition-property: transform;
+    transition: transform 500ms;
     font-size: 12pt;
     font-weight: 600;
     &:hover {

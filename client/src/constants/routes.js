@@ -2,7 +2,7 @@ const Routes = {
     Login: '/',
     Home: '/home',
     FloorPlan: '/home/floorplan',
-    UserData: '/home/userdata',
+    UsageData: '/home/usagedata',
     Error: '/error',
 };
 

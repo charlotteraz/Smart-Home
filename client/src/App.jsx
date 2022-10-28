@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as RouterDom from 'react-router-dom';
+import * as Router from 'react-router-dom';
 import LoginPage from 'pages/LoginPage';
 import HomePage from 'pages/HomePage';
+import FloorPlanPage from 'pages/FloorPlanPage';
+import UsageDataPage from 'pages/UsageDataPage';
 import ErrorPage from 'pages/ErrorPage';
 import Routes from 'constants/routes';
 
@@ -14,13 +16,16 @@ const Container = styled.div`
 const App = () => (
     <React.StrictMode>
         <Container>
-            <RouterDom.BrowserRouter>
-                <RouterDom.Routes>
-                    <RouterDom.Route path={Routes.Login} element={<LoginPage />} />
-                    <RouterDom.Route path={`${Routes.Home}/*`} element={<HomePage />} />
-                    <RouterDom.Route path="/*" element={<ErrorPage />} />
-                </RouterDom.Routes>
-            </RouterDom.BrowserRouter>
+            <Router.BrowserRouter>
+                <Router.Routes>
+                    <Router.Route path={Routes.Login} element={<LoginPage />} />
+                    <Router.Route path={Routes.Home} element={<HomePage />}>
+                        <Router.Route path={Routes.FloorPlan} element={<FloorPlanPage />} />
+                        <Router.Route path={Routes.UsageData} element={<UsageDataPage />} />
+                    </Router.Route>
+                    <Router.Route path="*" element={<ErrorPage />} />
+                </Router.Routes>
+            </Router.BrowserRouter>
         </Container>
     </React.StrictMode>
 );
