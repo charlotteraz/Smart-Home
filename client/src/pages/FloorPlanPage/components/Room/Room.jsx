@@ -11,17 +11,28 @@ const Container = styled.div`
     background-color: ${Colors.offBlack};
     border: solid 2px ${Colors.offWhite};
     border-radius: 8px;
+    transition-property: left, top, width, height;
+    transition-duration: 150ms;
 `;
 
-const Title = styled.h3`
+const Title = styled.h1`
     color: ${Colors.offWhite};
+    transition: font-size 150ms;
 `;
 
 const Room = (props) => {
-    const { name, x, y, width, height, devices } = props;
+    const { name, x, y, width, height, devices, scale = 1.0 } = props;
+
     return (
-        <Container style={{ left: x, top: y, width, height }}>
-            <Title>{name}</Title>
+        <Container
+            style={{
+                left: x * scale,
+                top: y * scale,
+                width: width * scale,
+                height: height * scale,
+            }}
+        >
+            <Title style={{ fontSize: 20 * scale }}>{name}</Title>
             {devices.map((device) => {
                 // Check if the device is a door or window,
                 // if so render it as a square on the edge.
@@ -50,6 +61,7 @@ const Room = (props) => {
                         y={device.y}
                         square={square}
                         direction={direction}
+                        scale={scale}
                     />
                 );
             })}

@@ -1,4 +1,3 @@
-import Colors from 'constants/colors';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -15,14 +14,14 @@ const StyledButton = styled.button`
         cursor: pointer;
     }
     &:active {
-        transform: scale(1);
+        transform: scale(0.95);
     }
 `;
 
 const Button = (props) => {
-    const { title, backgroundColor = Colors.blue, color = Colors.white, onClick } = props;
+    const { className, title, onClick } = props;
     return (
-        <StyledButton style={{ backgroundColor, color }} onClick={onClick}>
+        <StyledButton className={className} onClick={onClick}>
             {title}
         </StyledButton>
     );

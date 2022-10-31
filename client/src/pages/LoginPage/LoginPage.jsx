@@ -40,6 +40,11 @@ const FieldBox = styled.div`
     background-color: ${Colors.offBlack};
 `;
 
+const LoginButton = styled(Button)`
+    background-color: ${Colors.lightBlue};
+    color: ${Colors.black};
+`;
+
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -76,12 +81,7 @@ const LoginPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
                 />
-                <Button
-                    title="Login"
-                    backgroundColor={Colors.lightBlue}
-                    color={Colors.black}
-                    onClick={() => validateCredentials()}
-                />
+                <LoginButton title="Login" onClick={() => validateCredentials()} />
             </FieldBox>
         </Container>
     );

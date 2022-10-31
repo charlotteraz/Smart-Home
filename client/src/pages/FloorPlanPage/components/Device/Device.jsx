@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
+import { clamp } from 'util/math';
 
 const Container = styled.div`
     position: absolute;
@@ -8,9 +9,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: transform 200ms;
-    font-size: 9pt;
+    aspect-ratio: 1;
     color: ${Colors.offWhite};
+    transition-property: width, left, top, font-size, border-width, transform;
+    transition-duration: 150ms;
     transform: translate(-50%, -50%);
     &:hover {
         transform: translate(-50%, -50%) scale(1.05);
@@ -19,15 +21,12 @@ const Container = styled.div`
 `;
 
 const CircleContainer = styled(Container)`
-    width: 70px;
-    aspect-ratio: 1;
-    border: solid 2px ${Colors.offWhite};
+    border-style: solid;
+    border-color: ${Colors.offWhite};
     border-radius: 50%;
 `;
 
 const SquareContainer = styled(Container)`
-    width: 25px;
-    height: 25px;
     background-color: ${Colors.offWhite};
 `;
 
@@ -36,9 +35,15 @@ const OffsetTitle = styled.div`
 `;
 
 const Device = (props) => {
-    const { name, x, y, square = false, direction = null } = props;
+    const { name, x, y, square = false, direction = null, scale = 1.0 } = props;
 
-    const getLocationStyle = () => ({ left: x, top: y });
+    const getDynamicStyles = () => ({
+        width: scale * (!square ? 70 : 25),
+        left: x * scale,
+        top: y * scale,
+        fontSize: 13 * scale,
+        borderWidth: !square ? clamp(2 * scale, 1, 2) : undefined,
+    });
 
     const getOffsetTitleStyle = () => {
         switch (direction) {
@@ -56,9 +61,9 @@ const Device = (props) => {
     };
 
     return !square ? (
-        <CircleContainer style={getLocationStyle()}>{name}</CircleContainer>
+        <CircleContainer style={getDynamicStyles()}>{name}</CircleContainer>
     ) : (
-        <SquareContainer style={getLocationStyle()}>
+        <SquareContainer style={getDynamicStyles()}>
             <OffsetTitle style={getOffsetTitleStyle()}>{name}</OffsetTitle>
         </SquareContainer>
     );

@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
+import { clamp } from 'util/math';
 import Room from './components/Room';
+import Control from './components/Control';
 
 const Container = styled.div`
     display: flex;
@@ -409,6 +411,10 @@ const ROOMS = [
 
 const FloorPlanPage = () => {
     const floorPlanElement = useRef();
+    const ZOOM_INCREMENT = 0.1;
+    const MIN_SCALE = 0.6;
+    const MAX_SCALE = 1.4;
+    const [scale, setScale] = useState(0.7);
 
     // Set the FloorPlan view to the center
     useEffect(() => {
@@ -420,9 +426,17 @@ const FloorPlanPage = () => {
         });
     }, []);
 
+    const updateScale = (increment) => {
+        setScale((curr) => clamp(curr + increment, MIN_SCALE, MAX_SCALE));
+    };
+
     return (
         <Container>
             <FloorPlan ref={floorPlanElement}>
+                <Control
+                    onZoom={() => updateScale(ZOOM_INCREMENT)}
+                    onUnzoom={() => updateScale(-ZOOM_INCREMENT)}
+                />
                 {ROOMS.map((room) => (
                     <Room
                         key={room.roomId}
@@ -432,6 +446,7 @@ const FloorPlanPage = () => {
                         width={room.width}
                         height={room.height}
                         devices={room.devices}
+                        scale={scale}
                     />
                 ))}
             </FloorPlan>
