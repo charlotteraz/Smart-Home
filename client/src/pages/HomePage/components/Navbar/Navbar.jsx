@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledContainer = styled.div`
+const Container = styled.div`
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     background-color: blue;
 `;
 
-const Navbar = () => <StyledContainer />;
+const Navbar = () => <Container />;
 
 export default Navbar;

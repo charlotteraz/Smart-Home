@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import { Strut } from 'components/Layout';
 import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
-import ReactLogo from '../../smartHomeicon.png';
+import ReactLogo from 'assets/smartHomeIcon.png';
 
 const Container = styled.div`
     display: flex;
