@@ -1,4 +1,4 @@
-import Colors from 'constants/colors';
+// import Colors from 'constants/colors';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -7,8 +7,8 @@ const StyledInput = styled.input`
     height: 45px;
     padding: 0px 15px;
     margin: 0px;
-    border: 1px solid ${Colors.offBlack};
-    border-radius: 10px;
+    border: 1px solid #848484;
+    border-radius: 20px;
     font-size: 11pt;
     box-sizing: border-box;
 `;

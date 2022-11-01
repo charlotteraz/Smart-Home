@@ -7,6 +7,7 @@ import Button from 'components/Button';
 import { Strut } from 'components/Layout';
 import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
+import ReactLogo from '../../smartHomeicon.png';
 
 const Container = styled.div`
     display: flex;
@@ -15,12 +16,15 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${Colors.blue};
+    background-color: #5f84a1;
 `;
 
 const Title = styled.h1`
-    color: ${Colors.offWhite};
-    font-size: 35pt;
+    color: #1a4568;
+    font-size: 25pt;
+    font-family: 'Bebas Neue';
+    font-weight: 400;
+    margin-top: -30px;
 `;
 
 const Error = styled.h5`
@@ -29,20 +33,27 @@ const Error = styled.h5`
 
 const FieldBox = styled.div`
     display: flex;
-    width: 475px;
+    width: 300px;
+    height: 350px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     row-gap: 15px;
     align-self: center;
-    padding: 35px;
-    border-radius: 15px;
-    background-color: ${Colors.offBlack};
+    padding: 40px;
+    background-color: ${Colors.white};
+    box-shadow: 5px 5px #2d5e85;
 `;
 
 const LoginButton = styled(Button)`
-    background-color: ${Colors.lightBlue};
-    color: ${Colors.black};
+    background-color: #1a4568;
+    color: ${Colors.white};
+    font-weight: 400;
+`;
+
+const HomeLogo = styled.img`
+    width: 100px;
+    margin-top: -15px;
 `;
 
 const LoginPage = () => {
@@ -65,10 +76,11 @@ const LoginPage = () => {
 
     return (
         <Container>
-            <Title>Smart Home</Title>
             <Strut size={50} vertical />
             <FieldBox>
                 {error && <Error>{error}</Error>}
+                <HomeLogo className="HomeLogo" src={ReactLogo} />
+                <Title>Smart Home</Title>
                 <TextField
                     placeholder="Email"
                     value={email}
