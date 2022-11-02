@@ -5,16 +5,17 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     display: flex;
-    position: fixed;
+    position: absolute;
+    top: 0;
+    right: 0;
     justify-content: center;
     align-items: center;
-    top: 62px;
-    right: 32px;
     width: 65px;
     height: 100px;
     background-color: ${Colors.offBlack};
-    border: 1px solid ${Colors.offWhite};
-    border-radius: 10px;
+    border: 2px solid ${Colors.offWhite};
+    border-bottom-left-radius: 10px;
+    border-style: none none solid solid;
     padding: 15px;
     z-index: 1;
 `;

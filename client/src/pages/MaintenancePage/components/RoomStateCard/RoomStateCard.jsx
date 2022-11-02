@@ -28,7 +28,7 @@ const RoomStateCard = (props) => {
     const handleStateChange = (deviceId, state) => {
         // eslint-disable-next-line no-console
         console.log(`Room: ${roomId}, Device: ${deviceId}, State: ${state}`);
-        // TODO: SET request to update device state
+        // TODO: Make SET request to update device state
     };
 
     return (

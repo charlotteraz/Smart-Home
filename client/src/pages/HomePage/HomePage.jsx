@@ -15,6 +15,8 @@ const Container = styled.div`
 const HomePage = () => {
     const navigate = useNavigate();
     const sessionStorage = useSessionStorage();
+    // TODO: Make use of userId
+    // eslint-disable-next-line no-unused-vars
     const [userId, setUserId] = useState(null);
 
     // Auto-shows the floorplan first
@@ -32,7 +34,6 @@ const HomePage = () => {
     return (
         <Container>
             <Navbar />
-            <div>{userId}</div>
             <Outlet />
         </Container>
     );
