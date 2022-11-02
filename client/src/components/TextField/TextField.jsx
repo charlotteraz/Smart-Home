@@ -14,8 +14,16 @@ const StyledInput = styled.input`
 `;
 
 const TextField = (props) => {
-    const { placeholder, value, onChange, type = 'text' } = props;
-    return <StyledInput placeholder={placeholder} value={value} onChange={onChange} type={type} />;
+    const { className, placeholder, value, onChange, type = 'text' } = props;
+    return (
+        <StyledInput
+            className={className}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            type={type}
+        />
+    );
 };
 
 export default TextField;
