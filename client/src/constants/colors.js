@@ -8,6 +8,7 @@ const Colors = {
     lightBlue: '#bdcdd9',
     red: '#ed4337',
     lightRed: '#ff918f',
+    loginButtonColor: '#1a4568',
 };
 
 export default Colors;

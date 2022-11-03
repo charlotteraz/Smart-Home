@@ -40,7 +40,7 @@ const FloorPlan = styled.div`
     align-self: center;
     width: 100%;
     height: 100%;
-    background-color: ${Colors.black};
+    background-color: ${Colors.loginButtonColor};
     overflow: scroll;
     // Add right and bottom padding to scroll view
     & > :after {
@@ -68,6 +68,7 @@ const FloorPlan = styled.div`
 
 const Title = styled.h1`
     margin: 0 25px;
+    color: #378acd;
 `;
 
 const FloorPlanPage = () => {

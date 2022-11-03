@@ -10,7 +10,7 @@ const Container = styled.div`
     justify-content: center;
     text-align: center;
     aspect-ratio: 1;
-    color: ${Colors.offWhite};
+    color: ${Colors.offBlack};
     transition-property: width, left, top, font-size, border-width, transform;
     transition-duration: 150ms;
     transform: translate(-50%, -50%);
@@ -22,12 +22,13 @@ const Container = styled.div`
 
 const CircleContainer = styled(Container)`
     border-style: solid;
-    border-color: ${Colors.offWhite};
+    border-color: ${Colors.offBlack};
     border-radius: 50%;
 `;
 
 const SquareContainer = styled(Container)`
-    background-color: ${Colors.offWhite};
+    background-color: #378acd;
+    color: ${Colors.offWhite};
 `;
 
 const OffsetTitle = styled.div`

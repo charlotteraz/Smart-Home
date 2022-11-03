@@ -8,15 +8,15 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${Colors.offBlack};
-    border: solid 2px ${Colors.offWhite};
+    background-color: ${Colors.offWhite};
+    border: solid 2px ${Colors.offBlack};
     border-radius: 8px;
     transition-property: left, top, width, height;
     transition-duration: 150ms;
 `;
 
 const Title = styled.h1`
-    color: ${Colors.offWhite};
+    color: ${Colors.offBlack};
     transition: font-size 150ms;
 `;
 
