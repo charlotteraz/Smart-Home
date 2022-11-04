@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
+import Fonts from 'constants/fonts';
 import { Strut } from 'components/Layout';
 import { clamp } from 'util/math';
 import { ROOMS } from 'constants/mock';
@@ -68,7 +69,8 @@ const FloorPlan = styled.div`
 
 const Title = styled.h1`
     margin: 0 25px;
-    color: #378acd;
+    color: ${Colors.darkBlue};
+    font-family: ${Fonts.titleFont};
 `;
 
 const FloorPlanPage = () => {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
+import Fonts from 'constants/fonts';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import { Strut } from 'components/Layout';
@@ -16,13 +17,13 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #5f84a1;
+    background-color: ${Colors.lightBlue};
 `;
 
 const Title = styled.h1`
-    color: #1a4568;
+    color: ${Colors.darkBlue};
     font-size: 25pt;
-    font-family: 'Bebas Neue';
+    font-family: ${Fonts.titleFont};
     font-weight: 400;
     margin-top: -30px;
 `;
@@ -42,11 +43,11 @@ const FieldBox = styled.div`
     align-self: center;
     padding: 40px;
     background-color: ${Colors.white};
-    box-shadow: 5px 5px #2d5e85;
+    box-shadow: 5px 5px ${Colors.blue};
 `;
 
 const LoginButton = styled(Button)`
-    background-color: #1a4568;
+    background-color: ${Colors.darkBlue};
     color: ${Colors.white};
     font-weight: 400;
 `;

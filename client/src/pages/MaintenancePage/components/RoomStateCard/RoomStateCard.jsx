@@ -3,24 +3,26 @@ import styled from 'styled-components';
 import DeviceStateField from 'pages/MaintenancePage/components/DeviceStateField';
 import { Strut } from 'components/Layout';
 import Colors from 'constants/colors';
+import Fonts from 'constants/fonts';
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
     background-color: ${Colors.white};
-    border: 2px solid ${Colors.offBlack};
-    border-radius: 8px;
+    padding: 15px;
+    border-radius: 6px;
 `;
 
 const FieldContainer = styled.div`
-    display: flex;
-    width: 100%;
     flex-direction: column;
-    gap: 10px;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+    font-size: 25px;
+    font-family: ${Fonts.titleFont};
+    color: ${Colors.lightBlue};
+    font-weight: 400;
+    margin-left: 10px;
+    height: 20px;
+`;
 
 const RoomStateCard = (props) => {
     const { roomId, name, devices } = props;

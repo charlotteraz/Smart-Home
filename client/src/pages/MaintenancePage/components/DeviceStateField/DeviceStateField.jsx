@@ -8,18 +8,16 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 35px;
     padding: 5px 10px;
-    background-color: ${Colors.white};
     color: ${Colors.offBlack};
-    border: 2px solid ${Colors.offBlack};
-    border-radius: 6px;
 `;
 
 const Title = styled.h1`
-    font-size: 16pt;
+    font-size: 14px;
     font-weight: 500;
 `;
+
+const SampleSwitch = styled(ReactSwitch)``;
 
 const DeviceStateField = (props) => {
     const { name, onChange, defaultState = false } = props;
@@ -34,7 +32,7 @@ const DeviceStateField = (props) => {
         <Container>
             <Title>{name}</Title>
             <Strut size={15} />
-            <ReactSwitch checked={checked} onChange={handleChange} />
+            <SampleSwitch height={20} width={35} checked={checked} onChange={handleChange} />
         </Container>
     );
 };
