@@ -20,18 +20,19 @@ cur = conn.cursor()
 
 class login_validate(Resource): 
     def post(self):
+        #Takes in a post request with login info in the form of a json and check it against the database to confirm there is a user that matches that username password pair and returns a json with the userId on a valid pair or a different json with an incorrect login message
         json = request.get_json()
         cur.execute(f"SELECT * FROM users WHERE email = '{json['email']}' AND password = '{json['password']}';")
         query = cur.fetchall()
         if len(query) == 1:
-            print(query[0][0])
-            return query[0][0]
+            return jsonify({"userId":query[0][0]})
         else:
-            return "Incorrect username/password"
+            return jsonify({"message":"Incorrect username/password"})
         
 
 class get_rooms(Resource):
     def get(self):
+        #Queries the database and adds the data from each room into a dictionary which is then put into a list to create a json file to be sent to the frontend for rendering
         cur.execute(f"SELECT * FROM rooms;")
         rooms = cur.fetchall()
         rooms_list = []
@@ -44,7 +45,6 @@ class get_rooms(Resource):
             room_dict['width'] = room[4]
             room_dict['height'] = room[5]
             rooms_list.append(room_dict)
-        print(rooms_list)
         return jsonify(rooms_list)
 
 api.add_resource(login_validate, '/login_validate', '/api/login')
