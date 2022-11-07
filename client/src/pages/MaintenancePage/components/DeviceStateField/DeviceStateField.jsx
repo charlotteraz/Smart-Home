@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactSwitch from 'react-switch';
 import styled from 'styled-components';
 import { Strut } from 'components/Layout';
@@ -20,11 +20,9 @@ const Title = styled.h1`
 const SampleSwitch = styled(ReactSwitch)``;
 
 const DeviceStateField = (props) => {
-    const { name, onChange, defaultState = false } = props;
-    const [checked, setChecked] = useState(defaultState);
+    const { name, onChange, state } = props;
 
     const handleChange = (newChecked) => {
-        setChecked(newChecked);
         onChange(newChecked);
     };
 
@@ -32,7 +30,7 @@ const DeviceStateField = (props) => {
         <Container>
             <Title>{name}</Title>
             <Strut size={15} />
-            <SampleSwitch height={20} width={35} checked={checked} onChange={handleChange} />
+            <SampleSwitch height={20} width={35} checked={state} onChange={handleChange} />
         </Container>
     );
 };

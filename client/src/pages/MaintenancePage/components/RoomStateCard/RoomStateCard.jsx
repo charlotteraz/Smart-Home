@@ -4,6 +4,7 @@ import DeviceStateField from 'pages/MaintenancePage/components/DeviceStateField'
 import { Strut } from 'components/Layout';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
+import { useRooms } from 'contexts/RoomsContext';
 
 const Container = styled.div`
     background-color: ${Colors.white};
@@ -26,11 +27,17 @@ const Title = styled.h1`
 
 const RoomStateCard = (props) => {
     const { roomId, name, devices } = props;
+    const { updateDevice } = useRooms();
 
     const handleStateChange = (deviceId, state) => {
-        // eslint-disable-next-line no-console
-        console.log(`Room: ${roomId}, Device: ${deviceId}, State: ${state}`);
-        // TODO: Make SET request to update device state
+        // TODO: Make POST request to change device state
+        // Note: The POST request should return updated device object
+        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+        if (!targetDevice) {
+            return;
+        }
+        targetDevice.state = state;
+        updateDevice(roomId, deviceId, targetDevice);
     };
 
     return (
@@ -42,6 +49,7 @@ const RoomStateCard = (props) => {
                     <DeviceStateField
                         key={device.deviceId}
                         name={device.name}
+                        state={device.state}
                         onChange={(state) => handleStateChange(device.deviceId, state)}
                     />
                 ))}

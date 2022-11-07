@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate, Outlet } from 'react-router-dom';
+import { RoomsContextProvider, useRooms } from 'contexts/RoomsContext';
+import styled from 'styled-components';
+import useRequest from 'hooks/useRequest';
 import Navbar from 'pages/HomePage/components/Navbar';
-import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
+import URLS from 'constants/urls';
 
 const Container = styled.div`
     display: flex;
@@ -14,21 +16,34 @@ const Container = styled.div`
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const sessionStorage = useSessionStorage();
+    const request = useRequest();
+    const { setRooms } = useRooms();
     // TODO: Make use of userId
     // eslint-disable-next-line no-unused-vars
     const [userId, setUserId] = useState(null);
 
-    // Auto-shows the floorplan first
     useEffect(() => {
-        const sessionUserId = sessionStorage.getItem('userId');
-        if (sessionUserId) {
-            setUserId(sessionUserId);
+        const getRooms = async () => {
+            // Get the user id
+            const sessionUserId = sessionStorage.getItem('userId');
+            if (sessionUserId) {
+                setUserId(sessionUserId);
+            } else {
+                setUserId(null);
+                navigate(Routes.Error, { state: { message: 'Session ended!' } });
+                return;
+            }
+            // Get the rooms for the current user
+            try {
+                const respRooms = await request.get(URLS.rooms);
+                setRooms(respRooms);
+            } catch {
+                setRooms([]);
+            }
+            // Shows the floor plan first
             navigate(Routes.FloorPlan);
-        } else {
-            setUserId(null);
-            navigate(Routes.Error, { state: { message: 'Session ended!' } });
-        }
+        };
+        getRooms();
     }, []);
 
     return (
@@ -39,4 +54,10 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+const HomePageWithProvider = (props) => (
+    <RoomsContextProvider>
+        <HomePage {...props} />
+    </RoomsContextProvider>
+);
+
+export default HomePageWithProvider;

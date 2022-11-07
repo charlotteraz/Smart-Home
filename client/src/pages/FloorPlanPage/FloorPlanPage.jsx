@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
 import { Strut } from 'components/Layout';
+import { useRooms } from 'contexts/RoomsContext';
 import { clamp } from 'util/math';
-import URLS from 'constants/urls';
-import useRequest from 'hooks/useRequest';
 import Room from './components/Room';
 import Control from './components/Control';
 
@@ -87,26 +86,12 @@ const FloorPlanPage = () => {
     const MIN_SCALE = 0.6;
     const MAX_SCALE = 1.4;
     const [scale, setScale] = useState(0.7);
-    const [rooms, setRooms] = useState([]);
+    const { rooms } = useRooms();
     const [error, setError] = useState(null);
-    const request = useRequest();
 
     useEffect(() => {
-        const getRooms = async () => {
-            try {
-                const resp = await request.get(URLS.rooms);
-                setError(null);
-                setRooms(resp);
-            } catch (errMessage) {
-                setError(errMessage);
-                setRooms([]);
-            }
-        };
-        getRooms();
-    }, []);
-
-    useEffect(() => {
-        if (rooms.length === 0) {
+        if (rooms.length === 0 && !floorPlanElement.current) {
+            setError('No rooms found.');
             return;
         }
         // Centers the floor plan view

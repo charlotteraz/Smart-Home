@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
+import { useRooms } from 'contexts/RoomsContext';
 import { Strut } from 'components/Layout';
-import { ROOMS } from 'constants/mock';
 import RoomStateCard from './components/RoomStateCard';
 
 const Container = styled.div`
@@ -12,6 +12,7 @@ const Container = styled.div`
     width: 70%;
     align-self: center;
     margin-top: 40px;
+    padding-bottom: 40px;
 `;
 
 const GridContainer = styled.div`
@@ -39,23 +40,26 @@ const Title = styled.h1`
     color: ${Colors.darkBlue};
 `;
 
-const MaintenancePage = () => (
-    <Container>
-        <Title>Device Maintenance</Title>
-        <Strut vertical size={25} />
-        <GridContainer>
-            <Grid>
-                {ROOMS.map((room) => (
-                    <RoomStateCard
-                        key={room.roomId}
-                        roomId={room.roomId}
-                        name={room.name}
-                        devices={room.devices}
-                    />
-                ))}
-            </Grid>
-        </GridContainer>
-    </Container>
-);
+const MaintenancePage = () => {
+    const { rooms } = useRooms();
+    return (
+        <Container>
+            <Title>Device Maintenance</Title>
+            <Strut vertical size={25} />
+            <GridContainer>
+                <Grid>
+                    {rooms.map((room) => (
+                        <RoomStateCard
+                            key={room.roomId}
+                            roomId={room.roomId}
+                            name={room.name}
+                            devices={room.devices}
+                        />
+                    ))}
+                </Grid>
+            </GridContainer>
+        </Container>
+    );
+};
 
 export default MaintenancePage;
