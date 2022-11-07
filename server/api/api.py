@@ -38,7 +38,18 @@ class get_rooms(Resource):
         cur.execute(f"SELECT * FROM rooms;")
         rooms = cur.fetchall()
         rooms_list = []
+        
         for room in rooms:
+            cur.execute(f"SELECT * FROM devices WHERE roomId = {room[0]}")
+            devices = cur.fetchall()
+            device_list = []
+            for device in devices:
+                device_dict = {}
+                device_dict['deviceId'] = device[0]
+                device_dict['name'] = device[2]
+                device_dict['x'] = device[3]
+                device_dict['y'] = device[4]
+                device_list.append(device_dict)
             room_dict = {}
             room_dict['roomId'] = room[0]
             room_dict['name'] = room[1]
@@ -46,7 +57,7 @@ class get_rooms(Resource):
             room_dict['y'] = room[3]
             room_dict['width'] = room[4]
             room_dict['height'] = room[5]
-            room_dict['devices'] = []
+            room_dict['devices'] = device_list
             rooms_list.append(room_dict)
         conn.close()
         return jsonify(rooms_list)
