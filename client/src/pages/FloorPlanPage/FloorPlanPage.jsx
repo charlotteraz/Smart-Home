@@ -90,10 +90,11 @@ const FloorPlanPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (rooms.length === 0 && !floorPlanElement.current) {
-            setError('No rooms found.');
+        if (rooms.length === 0 || !floorPlanElement.current) {
+            setError('No rooms found. Try again.');
             return;
         }
+        setError(null);
         // Centers the floor plan view
         const { scrollWidth, scrollHeight, clientWidth, clientHeight } = floorPlanElement.current;
         floorPlanElement.current.scroll({
@@ -101,7 +102,7 @@ const FloorPlanPage = () => {
             top: scrollHeight / 2 - clientHeight / 2,
             behavior: 'instant',
         });
-    }, [rooms.length]);
+    }, [rooms.length, floorPlanElement.current]);
 
     const updateScale = (increment) => {
         setScale((curr) => clamp(curr + increment, MIN_SCALE, MAX_SCALE));

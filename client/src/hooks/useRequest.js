@@ -21,8 +21,8 @@ const useRequest = () => {
             }
             return Promise.reject('Something went wrong. Please try again.');
         } catch (err) {
-            const { message } = err.response.data;
-            if (message) {
+            if (err.response && err.response.data) {
+                const { message } = err.response.data;
                 return Promise.reject(message);
             }
             return Promise.reject(err.message);
@@ -46,8 +46,8 @@ const useRequest = () => {
             }
             return Promise.reject('Something went wrong. Please try again.');
         } catch (err) {
-            const { message } = err.response.data;
-            if (message) {
+            if (err.response && err.response.data) {
+                const { message } = err.response.data;
                 return Promise.reject(message);
             }
             return Promise.reject(err.message);

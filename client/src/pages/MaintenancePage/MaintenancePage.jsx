@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
@@ -40,24 +40,45 @@ const Title = styled.h1`
     color: ${Colors.darkBlue};
 `;
 
+const Error = styled.h2`
+    align-self: center;
+    margin: 0 25px;
+    color: ${Colors.red};
+    font-family: ${Fonts.titleFont};
+`;
+
 const MaintenancePage = () => {
     const { rooms } = useRooms();
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (rooms.length === 0) {
+            setError('No devices found. Try again.');
+            return;
+        }
+        setError(null);
+    }, [rooms.length]);
+
     return (
         <Container>
             <Title>Device Maintenance</Title>
             <Strut vertical size={25} />
-            <GridContainer>
-                <Grid>
-                    {rooms.map((room) => (
-                        <RoomStateCard
-                            key={room.roomId}
-                            roomId={room.roomId}
-                            name={room.name}
-                            devices={room.devices}
-                        />
-                    ))}
-                </Grid>
-            </GridContainer>
+            {error ? (
+                <Error>{error}</Error>
+            ) : (
+                <GridContainer>
+                    <Grid>
+                        {rooms.map((room) => (
+                            <RoomStateCard
+                                key={room.roomId}
+                                roomId={room.roomId}
+                                name={room.name}
+                                devices={room.devices}
+                            />
+                        ))}
+                    </Grid>
+                </GridContainer>
+            )}
         </Container>
     );
 };
