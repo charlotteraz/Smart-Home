@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api, reqparse
-from flask_cors import CORS 
+from flask import Flask, request, jsonify, make_response
+from flask_restful import Resource, Api
+from flask_cors import CORS
 import psycopg2
 
 app = Flask(__name__)
@@ -12,8 +12,6 @@ Password = "team1"
 Port = 5432
 DB_Name = "Team1DB"
 DB_Host = "138.26.48.83"
-
-
 
 conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
 cur = conn.cursor()
@@ -27,8 +25,7 @@ class login_validate(Resource):
         if len(query) == 1:
             return jsonify({"userId":query[0][0]})
         else:
-            return jsonify({"message":"Incorrect username/password"})
-        
+            return make_response(jsonify({"message":"Incorrect email or password"}), 401)
 
 class get_rooms(Resource):
     def get(self):
@@ -44,6 +41,7 @@ class get_rooms(Resource):
             room_dict['y'] = room[3]
             room_dict['width'] = room[4]
             room_dict['height'] = room[5]
+            room_dict['devices'] = []
             rooms_list.append(room_dict)
         return jsonify(rooms_list)
 
