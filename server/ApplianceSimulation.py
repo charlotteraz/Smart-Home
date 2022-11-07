@@ -1,61 +1,97 @@
+# CS499
+# Team1
+
 from math import floor,ceil
 
 def electric(watts: int) -> float:
     # Electricity is $0.12 per kWh (1w = 1/1000kw)"""
     cost = (watts / 1000) * .12
+    print(f"The cost for bathroom fan is {cost} per kwh.")
     return cost
 
 def lightBulbs() -> float:
     # Each bulbs uses 60 watts per hour
     watts = 60
-    number_units = 1
-    cost = electric(watts) * number_units
+    numberUnits = 1
+    cost = electric(watts) * numberUnits
     return cost
 
 def bathFan() -> float:
     # Each fan uses 30 watts per hour
     watts = 30
-    number_units = 1
-    cost = electric(watts) * number_units
+    numberUnits = 1
+    cost = electric(watts) * numberUnits
     return cost
 
 def hvac() -> float:
     # HVAC uses 3500 watts per hour
     watts = 3500
-    number_units = 1
-    cost = electric(watts) * number_units
+    numberUnits = 1
+    cost = electric(watts) * numberUnits
     return cost
 
 def refrigerator() -> float:
     # Refrigerator uses 150 watts per hour
     watts = 150
-    number_units = 1
-    cost = electric(watts) * number_units
+    numberUnits = 1
+    cost = electric(watts) * numberUnits
     return cost   
     
 def microwaveM_F() -> float:
     # Week Day microwave uses 1100 watts per hour at 20 minutes per day
     watts = 1100
     min_day = 20 / 60
-    number_units = 1
-    cost = (electric(watts) / min_day) * number_units
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
     return cost 
 
 def microwaveS_S() -> float:
     # Week End microwave uses 1100 watts per hour at 30 minutes per day
     watts = 1100
     min_day = 30 / 60
-    number_units = 1
-    cost = (electric(watts) / min_day) * number_units
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
     return cost       
 
 def waterHeater() -> float:
-    #  Week Day hot water heater uses 4500 watts per hour at 4 minutes per day
+    #  Daily hot water heater uses 4500 watts per hour at 4 minutes per day
     watts = 4500
     min_day = 4 / 60
-    number_units = 1
-    cost = (electric(watts) / min_day) * number_units
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
     return cost     
+
+def stoveM_F() -> float:
+    #  Week Day stove uses 3500 watts per hour at 15 minutes per day
+    watts = 3500
+    min_day = 15 / 60
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
+    return cost  
+
+def stoveS_S() -> float:
+    #  Week End stove uses 3500 watts per hour at 30 minutes per day
+    watts = 3500
+    min_day = 30 / 60
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
+    return cost 
+
+def ovenM_F() -> float:
+    #  Week Day oven uses 4000 watts per hour at 45 minutes per day
+    watts = 4000
+    min_day = 45 / 60
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
+    return cost  
+
+def ovenS_S() -> float:
+    #  Week End oven uses 4000 watts per hour at 60 minutes per day
+    watts = 4000
+    min_day = 60 / 60
+    numberUnits = 1
+    cost = (electric(watts) * min_day) * numberUnits
+    return cost 
 
 def temperatureDiffernce(internalTemp, externalTemp):
     #takes the internal and external temperature and return how large that difference is in intervals of +/-10 so a difference of 9 would result in 0 and 29 would result in 2 
@@ -101,4 +137,16 @@ ans = microwaveS_S()
 print(f"The cost for microwave S-S is {ans} per day.")
 
 ans = waterHeater()
-print(f"The cost for hot water heater S-S is {ans} per day.")
+print(f"The cost for the hot water heater is {ans:.3f} per day.")
+
+ans = stoveM_F()
+print(f"The cost for the stove M-F is {ans} per day.")
+
+ans = stoveS_S()
+print(f"The cost for the stove S-S is {ans} per day.")
+
+ans = ovenM_F()
+print(f"The cost for the oven M-F is {ans} per day.")
+
+ans = ovenS_S()
+print(f"The cost for the oven S-S is {ans} per day.")
