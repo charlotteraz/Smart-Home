@@ -15,7 +15,7 @@ DB_Host = "138.26.48.83"
 
 
 
-class login_validate(Resource): 
+class login_validate(Resource):
     def post(self):
         #Takes in a post request with login info in the form of a json and check it against the database to confirm there is a user that matches that username password pair and returns a json with the userId on a valid pair or a different json with an incorrect login message
         json = request.get_json()
@@ -27,7 +27,7 @@ class login_validate(Resource):
             conn.close()
             return jsonify({"userId":query[0][0]})
         else:
-            conn.close
+            conn.close()
             return make_response(jsonify({"message":"Incorrect email or password"}), 401)
 
 class get_rooms(Resource):
@@ -49,6 +49,7 @@ class get_rooms(Resource):
                 device_dict['name'] = device[2]
                 device_dict['x'] = device[3]
                 device_dict['y'] = device[4]
+                device_dict['state'] = False
                 device_list.append(device_dict)
             room_dict = {}
             room_dict['roomId'] = room[0]
