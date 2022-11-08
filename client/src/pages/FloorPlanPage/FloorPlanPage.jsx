@@ -88,13 +88,17 @@ const FloorPlanPage = () => {
     const [scale, setScale] = useState(0.7);
     const { rooms } = useRooms();
     const [error, setError] = useState(null);
+    const hasCentered = useRef(false);
 
     useEffect(() => {
-        if (rooms.length === 0 || !floorPlanElement.current) {
+        if (rooms.length === 0) {
             setError('No rooms found. Try again.');
             return;
         }
         setError(null);
+        if (hasCentered.current || !floorPlanElement.current) {
+            return;
+        }
         // Centers the floor plan view
         const { scrollWidth, scrollHeight, clientWidth, clientHeight } = floorPlanElement.current;
         floorPlanElement.current.scroll({
@@ -102,6 +106,7 @@ const FloorPlanPage = () => {
             top: scrollHeight / 2 - clientHeight / 2,
             behavior: 'instant',
         });
+        hasCentered.current = true;
     }, [rooms.length, floorPlanElement.current]);
 
     const updateScale = (increment) => {
@@ -124,6 +129,7 @@ const FloorPlanPage = () => {
                         {rooms.map((room) => (
                             <Room
                                 key={room.roomId}
+                                roomId={room.roomId}
                                 name={room.name}
                                 x={room.x}
                                 y={room.y}

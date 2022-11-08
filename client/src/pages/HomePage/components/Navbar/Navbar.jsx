@@ -14,12 +14,15 @@ const Container = styled.div`
 `;
 
 const NavLink = styled(Link)`
-    color: #fff;
+    color: ${Colors.white};
     display: flex;
     align-items: center;
     text-decoration: none;
     padding: 0 15px;
     cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 const StyledNavbar = styled.div`
@@ -32,13 +35,13 @@ const StyledNavbar = styled.div`
 const HomeLogo = styled.img`
     width: 50px;
     height: 50px;
+    align-self: center;
+    margin: 0 15px;
 `;
 
 const Navbar = () => (
     <Container>
-        <NavLink to={Routes.Home}>
-            <HomeLogo className="HomeLogo" src={ReactLogo} />
-        </NavLink>
+        <HomeLogo className="HomeLogo" src={ReactLogo} />
         <StyledNavbar>
             <NavLink to={Routes.FloorPlan}>Floor Plan</NavLink>
             <NavLink to={Routes.Maintenance}>Maintenance</NavLink>
