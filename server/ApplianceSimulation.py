@@ -4,18 +4,18 @@
 
 from math import floor,ceil
 
-""" Functions to calculate daily usage functions """
+""" Called functions to calculate daily usage functions """
 
 def electric(watts: int) -> float:
     # Electricity is $0.12 per kWh = W X time (hours) / 1000kw)
     cost = (watts / 1000) * .12
-    print(f"*** Usage cost is {cost} kwh.")
+    #print(f"*** Usage cost is {cost} kwh.")
     return cost
 
 def water(gallons: int) -> float:
     # Electricity is $2.52 per 748 gallons)
     cost = (gallons / 748) * 2.52
-    print(f"*** Water cost is ${cost}.")
+    #print(f"*** Water cost is ${cost}.")
     return cost
 
 def waterHeater(gallons_of_hot_water: int) -> float:
@@ -25,8 +25,7 @@ def waterHeater(gallons_of_hot_water: int) -> float:
     cost = (electric(watts) * min_to_heat) * gallons_of_hot_water
     return cost   
 
-
-""" Daily usage functions to import data"""
+""" Functions to utilize only when the device is active """
 
 def lightBulbs() -> float:
     # Each bulbs uses 60 watts per hour
@@ -56,6 +55,10 @@ def refrigerator() -> float:
     cost = electric(watts) * numberUnits
     return cost   
     
+""" Daily usage functions to import constant data"""
+
+""" Microwave """
+
 def microwaveM_F() -> float:
     # Week Day microwave uses 1100 watts per hour at 20 minutes per day
     watts = 1100
@@ -70,7 +73,9 @@ def microwaveS_S() -> float:
     min_day = 30 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost       
+    return cost 
+
+""" Stove """
 
 def stoveM_F() -> float:
     #  Week Day stove uses 3500 watts per hour at 15 minutes per day
@@ -88,6 +93,8 @@ def stoveS_S() -> float:
     cost = (electric(watts) * min_day) * numberUnits
     return cost 
 
+""" Oven """
+
 def ovenM_F() -> float:
     #  Week Day oven uses 4000 watts per hour at 45 minutes per day
     watts = 4000
@@ -103,6 +110,8 @@ def ovenS_S() -> float:
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
     return cost 
+
+""" Living Room TV """
 
 def livingRoomTvM_F() -> float:
     #  Week Day Living Room TV uses 636 watts per hour at 240 minutes per day
@@ -120,6 +129,8 @@ def livingRoomTvS_S() -> float:
     cost = (electric(watts) * min_day) * numberUnits
     return cost 
 
+""" Bedroom TV """
+
 def bedroomTvM_F() -> float:
     #  Week Day oven uses 636 watts per hour at 45 minutes per day
     watts = 100
@@ -136,7 +147,7 @@ def bedroomTvS_S() -> float:
     cost = (electric(watts) * min_day) * numberUnits
     return cost 
 
-""" Daily usage functions to import data: Baths"""
+"""  Baths"""
 
 def bathsShowerWaterM_F() -> float:
      #  Week Day shower uses 25 gallons per bath at 2 per day
@@ -199,6 +210,76 @@ def bathsBathElectricalS_S() -> float:
     return cost
 
 
+""" Dishwasher"""
+
+def dishwasherWaterWeekly() -> float:
+    # Weekly dishwasher uses 1800 watts, 6 gallons per load, 45 minutes per load, 
+    # 4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly water cost
+    gallons = 6
+    perWeek = 4
+    cost = (water(gallons) * perWeek) 
+    return cost
+
+def dishwasherHWElectricalWeekly() -> float:
+    # Weekly dishwasher uses 1800 watts, 6 gallons per load, 45 minutes per load, 
+    # 4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly electrical cost
+    gallons = 6    
+    perWeek = 4
+    cost = (waterHeater(gallons) * perWeek)    
+    return cost
+
+def dishwasherElectricalWeekly ()-> float:
+    # Weekly dishwasher uses 1800 watts, 6 gallons per load, 45 minutes per load, 
+    # 4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly electrical cost
+    watts = 1800
+    min_day = 45 / 60
+    perWeek = 4
+    cost = (electric(watts) * min_day) * perWeek
+    return cost 
+
+""" Weekly usage functions to import data: Clothes Washer"""
+
+def clotheswasherWaterWeekly () -> float:
+    # Weekly clothes washer uses 500 watts, 20 gallons per load at 85% hot water and 15% cold water
+    # 30 minutes per load,  4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly water cost
+    gallons = 20
+    perWeek = 4
+    cost = (water(gallons) * perWeek) 
+    return cost
+
+def clotheswasherHWElectricalWeekly () -> float:
+    # Weekly clothes washer uses 500 watts, 20 gallons per load at 85% hot water and 15% cold water
+    # 30 minutes per load,  4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly electrical cost
+    gallons = 20    
+    perWeek = 4
+    hotWaterPercent = 0.85
+    cost = (waterHeater(gallons * hotWaterPercent) * perWeek)    
+    return cost
+
+def clotheswasherElectricalWeekly ()-> float:
+    # Weekly clothes washer uses 500 watts, 20 gallons per load at 85% hot water and 15% cold water
+    # 30 minutes per load,  4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly electrical cost
+    watts = 500
+    min_day = 30 / 60
+    perWeek = 4
+    cost = (electric(watts) * min_day) * perWeek
+    return cost     
+
+def clothesdryerElectricalWeekly ()-> float:
+    # Weekly clothes washer uses 3000 watts
+    # 30 minutes per load,  4 loads per week (???Sun:Tues:Thur:Sat)
+    # Returns weekly electrical cost
+    watts = 3000
+    min_day = 30 / 60
+    perWeek = 4
+    cost = (electric(watts) * min_day) * perWeek
+    return cost     
 
 
 """
@@ -238,7 +319,9 @@ def temperatureDiffernce(internalTemp, externalTemp):
 
 watts = 3500
 ans = electric(watts)
-print(f"The cost for {watts} watts is {ans} per kwh.")
+print(f"TEST---The cost for {watts} watts is {ans} per kwh.")
+
+print(f"\nDEVICES USED WHEN ACTIVE ONLY SECTION")
 
 ans = lightBulbs()
 print(f"The cost for lightbulbs are {ans} per kwh.")
@@ -251,6 +334,8 @@ print(f"The cost for HVAC is {ans} per kwh.")
 
 ans = refrigerator()
 print(f"The cost for refrigerator is {ans} per kwh.")
+
+print(f"\nDAILY USAGE SECTION")
 
 ans = microwaveM_F()
 print(f"The cost for microwave M-F is {ans} per day.")
@@ -308,3 +393,26 @@ print(f"The electrical cost for hot water for the Showers S-S is {ans} per day."
 
 ans = bathsBathElectricalS_S ()
 print(f"The electrical cost for hot water for the Bath S-S is {ans} per day.")
+
+print(f"\nWEEKLY USAGE SECTION")
+
+ans = dishwasherWaterWeekly ()
+print(f"The water cost for the Dishwasher is {ans} at 4 uses per week.")
+
+ans = dishwasherHWElectricalWeekly ()
+print(f"The electrical cost for the Dishwasher's Hot Water is {ans} at 4 uses per week.")
+
+ans = dishwasherElectricalWeekly ()
+print(f"The electrical cost for the Dishwasher energy is {ans} at 4 uses per week.")
+
+ans = clotheswasherWaterWeekly ()
+print(f"The water cost for the Clothes Washer is {ans} at 4 uses per week.")
+
+ans = clotheswasherHWElectricalWeekly ()
+print(f"The electrical cost for the Clothes Washer's Hot Water is {ans} at 4 uses per week.")
+
+ans = clotheswasherElectricalWeekly ()
+print(f"The electrical cost for the Clothes Washer energy is {ans} at 4 uses per week.")
+
+ans = clothesdryerElectricalWeekly ()
+print(f"The electrical cost for the Clothes Dryer energy is {ans} at 4 uses per week.")
