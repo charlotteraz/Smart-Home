@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
+import { useRooms } from 'contexts/RoomsContext';
 import { Strut } from 'components/Layout';
-import { ROOMS } from 'constants/mock';
 import RoomStateCard from './components/RoomStateCard';
 
 const Container = styled.div`
@@ -12,6 +12,7 @@ const Container = styled.div`
     width: 70%;
     align-self: center;
     margin-top: 40px;
+    padding-bottom: 40px;
 `;
 
 const GridContainer = styled.div`
@@ -39,23 +40,47 @@ const Title = styled.h1`
     color: ${Colors.darkBlue};
 `;
 
-const MaintenancePage = () => (
-    <Container>
-        <Title>Device Maintenance</Title>
-        <Strut vertical size={25} />
-        <GridContainer>
-            <Grid>
-                {ROOMS.map((room) => (
-                    <RoomStateCard
-                        key={room.roomId}
-                        roomId={room.roomId}
-                        name={room.name}
-                        devices={room.devices}
-                    />
-                ))}
-            </Grid>
-        </GridContainer>
-    </Container>
-);
+const Error = styled.h2`
+    align-self: center;
+    margin: 0 25px;
+    color: ${Colors.red};
+    font-family: ${Fonts.titleFont};
+`;
+
+const MaintenancePage = () => {
+    const { rooms } = useRooms();
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (rooms.length === 0) {
+            setError('No devices found. Try again.');
+            return;
+        }
+        setError(null);
+    }, [rooms.length]);
+
+    return (
+        <Container>
+            <Title>Device Maintenance</Title>
+            <Strut vertical size={25} />
+            {error ? (
+                <Error>{error}</Error>
+            ) : (
+                <GridContainer>
+                    <Grid>
+                        {rooms.map((room) => (
+                            <RoomStateCard
+                                key={room.roomId}
+                                roomId={room.roomId}
+                                name={room.name}
+                                devices={room.devices}
+                            />
+                        ))}
+                    </Grid>
+                </GridContainer>
+            )}
+        </Container>
+    );
+};
 
 export default MaintenancePage;

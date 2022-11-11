@@ -34,6 +34,9 @@
         "no-restricted-exports": "off",
         "react/prop-types": "off",
         "import/prefer-default-export": "off",
+        "prefer-promise-reject-errors": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-no-constructed-context-values": "off",
         "react/function-component-definition": [2, {
             "namedComponents": "arrow-function"
         }]

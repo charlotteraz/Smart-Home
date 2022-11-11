@@ -1,7 +1,9 @@
+import React, { useState, useMemo } from 'react';
 import Colors from 'constants/colors';
-import React from 'react';
+import { useRooms } from 'contexts/RoomsContext';
 import styled from 'styled-components';
 import Device from '../Device';
+import DeviceStateModal from '../DeviceStateModal';
 
 const Container = styled.div`
     position: absolute;
@@ -21,7 +23,27 @@ const Title = styled.h1`
 `;
 
 const Room = (props) => {
-    const { name, x, y, width, height, devices, scale = 1.0 } = props;
+    const { roomId, name, x, y, width, height, devices, scale = 1.0 } = props;
+    const { updateDevice } = useRooms();
+    const [modalDeviceId, setModalDeviceId] = useState(null);
+
+    const modalDevice = useMemo(() => {
+        if (modalDeviceId === null) {
+            return null;
+        }
+        return devices.find((device) => device.deviceId === modalDeviceId) ?? null;
+    }, [modalDeviceId]);
+
+    const handleDeviceStateChange = (deviceId, state) => {
+        // TODO: Make POST request to change device state
+        // Note: The POST request should return updated device object
+        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+        if (!targetDevice) {
+            return;
+        }
+        targetDevice.state = state;
+        updateDevice(roomId, deviceId, targetDevice);
+    };
 
     return (
         <Container
@@ -53,18 +75,35 @@ const Room = (props) => {
                 } else if (device.y === height) {
                     direction = 'bottom';
                 }
+                // Only specific devices should be clickable
+                const isClickable =
+                    lowercaseName.includes('light') ||
+                    lowercaseName.includes('lamp') ||
+                    lowercaseName.includes('overhead');
                 return (
                     <Device
                         key={device.deviceId}
+                        deviceId={device.deviceId}
                         name={device.name}
                         x={device.x}
                         y={device.y}
+                        state={device.state}
+                        dynamicBackground={isClickable}
                         square={square}
                         direction={direction}
                         scale={scale}
+                        onClick={(deviceId) => isClickable && setModalDeviceId(deviceId)}
                     />
                 );
             })}
+            {modalDeviceId !== null && modalDevice !== null && (
+                <DeviceStateModal
+                    name={modalDevice.name}
+                    state={modalDevice.state}
+                    onChange={(state) => handleDeviceStateChange(modalDeviceId, state)}
+                    onClose={() => setModalDeviceId(null)}
+                />
+            )}
         </Container>
     );
 };

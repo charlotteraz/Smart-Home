@@ -18,6 +18,9 @@ const Container = styled.div`
         transform: translate(-50%, -50%) scale(1.05);
         cursor: pointer;
     }
+    &:active {
+        transform: translate(-50%, -50%) scale(1);
+    }
 `;
 
 const CircleContainer = styled(Container)`
@@ -27,7 +30,7 @@ const CircleContainer = styled(Container)`
 `;
 
 const SquareContainer = styled(Container)`
-    background-color: #378acd;
+    background-color: ${Colors.strongBlue};
     color: ${Colors.offWhite};
 `;
 
@@ -36,7 +39,18 @@ const OffsetTitle = styled.div`
 `;
 
 const Device = (props) => {
-    const { name, x, y, square = false, direction = null, scale = 1.0 } = props;
+    const {
+        deviceId,
+        name,
+        x,
+        y,
+        state,
+        dynamicBackground = false,
+        square = false,
+        direction = null,
+        scale = 1.0,
+        onClick,
+    } = props;
 
     const getDynamicStyles = () => ({
         width: scale * (!square ? 70 : 25),
@@ -44,6 +58,7 @@ const Device = (props) => {
         top: y * scale,
         fontSize: 13 * scale,
         borderWidth: !square ? clamp(2 * scale, 1, 2) : undefined,
+        backgroundColor: dynamicBackground && state ? Colors.yellow : undefined,
     });
 
     const getOffsetTitleStyle = () => {
@@ -62,7 +77,9 @@ const Device = (props) => {
     };
 
     return !square ? (
-        <CircleContainer style={getDynamicStyles()}>{name}</CircleContainer>
+        <CircleContainer style={getDynamicStyles()} onClick={() => onClick(deviceId)}>
+            {name}
+        </CircleContainer>
     ) : (
         <SquareContainer style={getDynamicStyles()}>
             <OffsetTitle style={getOffsetTitleStyle()}>{name}</OffsetTitle>

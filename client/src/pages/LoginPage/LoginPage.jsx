@@ -8,7 +8,9 @@ import Button from 'components/Button';
 import { Strut } from 'components/Layout';
 import useSessionStorage from 'hooks/useSessionStorage';
 import Routes from 'constants/routes';
+import URLS from 'constants/urls';
 import ReactLogo from 'assets/smartHomeIcon.png';
+import useRequest from 'hooks/useRequest';
 
 const Container = styled.div`
     display: flex;
@@ -63,16 +65,22 @@ const LoginPage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const sessionStorage = useSessionStorage();
+    const request = useRequest();
 
-    const validateCredentials = () => {
+    const validateCredentials = async () => {
         if (email.length === 0 || password.length === 0) {
             setError('Invalid email or password');
             return;
         }
-        setError(null);
-        // TODO: Pass 'userId' returned from login query.
-        sessionStorage.setItem('userId', 1);
-        navigate(Routes.Home);
+        try {
+            const postData = { email, password };
+            const respData = await request.post(URLS.login, postData);
+            setError(null);
+            sessionStorage.setItem('userId', respData.userId);
+            navigate(Routes.Home);
+        } catch (errMessage) {
+            setError(errMessage);
+        }
     };
 
     return (

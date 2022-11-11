@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
 import { Strut } from 'components/Layout';
+import { useRooms } from 'contexts/RoomsContext';
 import { clamp } from 'util/math';
-import { ROOMS } from 'constants/mock';
 import Room from './components/Room';
 import Control from './components/Control';
 
@@ -73,22 +73,41 @@ const Title = styled.h1`
     font-family: ${Fonts.titleFont};
 `;
 
+const Error = styled.h2`
+    align-self: center;
+    margin: 0 25px;
+    color: ${Colors.red};
+    font-family: ${Fonts.titleFont};
+`;
+
 const FloorPlanPage = () => {
     const floorPlanElement = useRef();
     const ZOOM_INCREMENT = 0.1;
     const MIN_SCALE = 0.6;
     const MAX_SCALE = 1.4;
     const [scale, setScale] = useState(0.7);
+    const { rooms } = useRooms();
+    const [error, setError] = useState(null);
+    const hasCentered = useRef(false);
 
-    // Set the FloorPlan view to the center
     useEffect(() => {
+        if (rooms.length === 0) {
+            setError('No rooms found. Try again.');
+            return;
+        }
+        setError(null);
+        if (hasCentered.current || !floorPlanElement.current) {
+            return;
+        }
+        // Centers the floor plan view
         const { scrollWidth, scrollHeight, clientWidth, clientHeight } = floorPlanElement.current;
         floorPlanElement.current.scroll({
             left: scrollWidth / 2 - clientWidth / 2,
             top: scrollHeight / 2 - clientHeight / 2,
             behavior: 'instant',
         });
-    }, []);
+        hasCentered.current = true;
+    }, [rooms.length, floorPlanElement.current]);
 
     const updateScale = (increment) => {
         setScale((curr) => clamp(curr + increment, MIN_SCALE, MAX_SCALE));
@@ -98,26 +117,31 @@ const FloorPlanPage = () => {
         <Container>
             <Title>Floor Plan</Title>
             <Strut vertical size={25} />
-            <FloorPlanContainer>
-                <Control
-                    onZoom={() => updateScale(ZOOM_INCREMENT)}
-                    onUnzoom={() => updateScale(-ZOOM_INCREMENT)}
-                />
-                <FloorPlan ref={floorPlanElement}>
-                    {ROOMS.map((room) => (
-                        <Room
-                            key={room.roomId}
-                            name={room.name}
-                            x={room.x}
-                            y={room.y}
-                            width={room.width}
-                            height={room.height}
-                            devices={room.devices}
-                            scale={scale}
-                        />
-                    ))}
-                </FloorPlan>
-            </FloorPlanContainer>
+            {error ? (
+                <Error>{error}</Error>
+            ) : (
+                <FloorPlanContainer>
+                    <Control
+                        onZoom={() => updateScale(ZOOM_INCREMENT)}
+                        onUnzoom={() => updateScale(-ZOOM_INCREMENT)}
+                    />
+                    <FloorPlan ref={floorPlanElement}>
+                        {rooms.map((room) => (
+                            <Room
+                                key={room.roomId}
+                                roomId={room.roomId}
+                                name={room.name}
+                                x={room.x}
+                                y={room.y}
+                                width={room.width}
+                                height={room.height}
+                                devices={room.devices}
+                                scale={scale}
+                            />
+                        ))}
+                    </FloorPlan>
+                </FloorPlanContainer>
+            )}
         </Container>
     );
 };
