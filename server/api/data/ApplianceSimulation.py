@@ -1,7 +1,10 @@
 # CS499
 # Team1
-# Last Modified 11-07-2022
+# Last Modified 11-11-2022
 
+import csv
+import os.path
+from datetime import date
 from math import floor,ceil
 
 """ Called functions to calculate daily usage functions """
@@ -314,7 +317,38 @@ def temperatureDiffernce(internalTemp, externalTemp):
         return floor(tempDiffernce/10)
 
 
+""" Method to create the CSV file for the Daily Functions"""
+def writeToCSV(currentDate):
+    #writes utility value to csv
+    if(os.path.isfile('ApplianceD.csv')):
+        fields=[currentDate, str(microwaveM_F()),str(microwaveS_S()),str(stoveM_F()), str(stoveS_S()),str(ovenM_F()), str(ovenS_S()),str(livingRoomTvM_F()),str(livingRoomTvS_S()),
+        str(bedroomTvM_F()), str(bedroomTvS_S()),str(bathsShowerWaterM_F()), str(bathsBathWaterM_F()),str(bathsShowerWaterS_S()), str(bathsBathWaterS_S()),str(bathsShowerElectricalM_F()), 
+        str(bathsBathElectricalM_F()),str(bathsShowerElectricalS_S()),str(bathsBathElectricalS_S())]
+        with open(r'ApplianceD.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(fields)
+    else:
+         with open('ApplianceD.csv', 'w', newline='') as outcsv:
+            writer = csv.writer(outcsv)
+            writer.writerow(['Date','microwaveM-F','microwaveS-S','stoveM-F','stoveS-S','ovenM-F','ovenS-S','livingRoomTvM_F','livingRoomTvS_S',
+            'bedroomTvM_F','bedroomTvS_S','bathsShowerWaterM_F','bathsBathWaterM_F','bathsShowerWaterS_S','bathsBathWaterS_S','bathsShowerElectricalM_F',
+            'bathsBathElectricalM_F','bathsShowerElectricalS_S','bathsBathElectricalS_S'])           
 
+""" Method to create the CSV file for the Weekly Functions
+# Need to get both CSV functions to work simultaneously 
+def writeToCSV(currentDate):
+    #writes utility value to csv
+    if(os.path.isfile('ApplianceW.csv')):
+        fields=[currentDate, str(clotheswasherWaterWeekly()),str(clotheswasherHWElectricalWeekly()),str(clotheswasherElectricalWeekly()), str(clothesdryerElectricalWeekly())]
+        with open(r'ApplianceW.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(fields)
+    else:
+         with open('ApplianceW.csv', 'w', newline='') as outcsv2:
+            writer = csv.writer(outcsv2)
+            writer.writerow(['Date','clotheswasherWaterWeekly','clotheswasherHWElectricalWeekly','clotheswasherElectricalWeekly','clothesdryerElectricalWeekly'])   
+
+"""       
 # Driver Code
 
 watts = 3500
@@ -416,3 +450,6 @@ print(f"The electrical cost for the Clothes Washer energy is {ans} at 4 uses per
 
 ans = clothesdryerElectricalWeekly ()
 print(f"The electrical cost for the Clothes Dryer energy is {ans} at 4 uses per week.")
+
+today = str(date.today())
+writeToCSV(today)
