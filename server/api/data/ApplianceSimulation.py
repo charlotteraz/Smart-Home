@@ -2,9 +2,9 @@
 # Team1
 # Last Modified 11-11-2022
 
-import csv
+#import csv
 import os.path
-from datetime import date
+import datetime
 from math import floor,ceil
 
 """ Called functions to calculate daily usage functions """
@@ -285,29 +285,6 @@ def clothesdryerElectricalWeekly ()-> float:
     return cost     
 
 
-"""
-def waterHeater() -> float:
-    #  Daily hot water heater uses 4500 watts per hour at 4 minutes per day
-    watts = 4500
-    min_day = 4 / 60
-    numberUnits = 1
-    cost = (electric(watts) * min_day) * numberUnits
-    return cost  
-
-def waterHeater(gallons_of_hot_water) -> float:
-    watts = 4500
-    min_to_heat = 4 / 60
-    cost = (electric(watts) / min_to_heat) * gallons_of_hot_water
-    return cost   
-
-def dishwasher() -> float:
-    watts = 1800
-    min_day = 11.25 / 60
-    gallons_of_hot_water = 6
-    cost = (electric(watts) / min_day) + waterHeater(gallons_of_hot_water)
-    return cost
-"""
-
 def temperatureDiffernce(internalTemp, externalTemp):
     #takes the internal and external temperature and return how large that difference is in intervals of +/-10 so a difference of 9 would result in 0 and 29 would result in 2 
     tempDiffernce = externalTemp - internalTemp
@@ -317,38 +294,102 @@ def temperatureDiffernce(internalTemp, externalTemp):
         return floor(tempDiffernce/10)
 
 
-""" Method to create the CSV file for the Daily Functions"""
-def writeToCSV(currentDate):
-    #writes utility value to csv
-    if(os.path.isfile('ApplianceD.csv')):
-        fields=[currentDate, str(microwaveM_F()),str(microwaveS_S()),str(stoveM_F()), str(stoveS_S()),str(ovenM_F()), str(ovenS_S()),str(livingRoomTvM_F()),str(livingRoomTvS_S()),
-        str(bedroomTvM_F()), str(bedroomTvS_S()),str(bathsShowerWaterM_F()), str(bathsBathWaterM_F()),str(bathsShowerWaterS_S()), str(bathsBathWaterS_S()),str(bathsShowerElectricalM_F()), 
-        str(bathsBathElectricalM_F()),str(bathsShowerElectricalS_S()),str(bathsBathElectricalS_S())]
-        with open(r'ApplianceD.csv', 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(fields)
-    else:
-         with open('ApplianceD.csv', 'w', newline='') as outcsv:
-            writer = csv.writer(outcsv)
-            writer.writerow(['Date','microwaveM-F','microwaveS-S','stoveM-F','stoveS-S','ovenM-F','ovenS-S','livingRoomTvM_F','livingRoomTvS_S',
-            'bedroomTvM_F','bedroomTvS_S','bathsShowerWaterM_F','bathsBathWaterM_F','bathsShowerWaterS_S','bathsBathWaterS_S','bathsShowerElectricalM_F',
-            'bathsBathElectricalM_F','bathsShowerElectricalS_S','bathsBathElectricalS_S'])           
+today = datetime.date.today()
 
-""" Method to create the CSV file for the Weekly Functions
-# Need to get both CSV functions to work simultaneously 
-def writeToCSV(currentDate):
-    #writes utility value to csv
-    if(os.path.isfile('ApplianceW.csv')):
-        fields=[currentDate, str(clotheswasherWaterWeekly()),str(clotheswasherHWElectricalWeekly()),str(clotheswasherElectricalWeekly()), str(clothesdryerElectricalWeekly())]
-        with open(r'ApplianceW.csv', 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(fields)
-    else:
-         with open('ApplianceW.csv', 'w', newline='') as outcsv2:
-            writer = csv.writer(outcsv2)
-            writer.writerow(['Date','clotheswasherWaterWeekly','clotheswasherHWElectricalWeekly','clotheswasherElectricalWeekly','clothesdryerElectricalWeekly'])   
 
-"""       
+# Import DictWriter class from CSV module
+from csv import DictWriter
+
+# Starting date range
+startdate = datetime.date(2022, 10, 1)
+
+# Ending date range or today's date
+tday = datetime.date.today()
+
+# total days from startdate to today's date
+daystotal = tday - startdate
+
+#print(daystotal.days)
+
+# list of column names
+field_names = ['DeviceID', 'DeviceName', 'Date', 'Usage']
+
+# Open CSV file in append mode
+# Create a file object for this file
+with open('applianceR.csv', 'a', newline='') as f_object:
+
+        # Pass the file object and a list
+        # of column names to DictWriter()
+        # You will get a object of DictWriter
+        dictwriter_object = DictWriter(f_object, fieldnames=field_names)
+    
+        # Pass the dictionary as an argument to the writeheader()
+        dictwriter_object.writeheader()
+
+
+        index = 0
+        while (index < daystotal.days):
+            tdelta = datetime.timedelta(days=index)
+            thisday = startdate + tdelta
+            #print(thisday)
+
+            # Find day of week where as Monday = 0 to Sunday = 6
+            # https://pynative.com/python-get-the-day-of-week/#:~:text=Use%20the%20weekday()%20method,its%20weekday%20number%20is%200
+            dayofweek = thisday.weekday()    
+                
+            # Print the number for day of week
+            #print (dayofweek)
+            # If >= 4 equals weekday
+            if (dayofweek >= 0 and dayofweek <=4):
+                #print("WEEKDAY")
+                # Dictionary that we want to add as a new row on weekdays
+                dict = [{'DeviceID': 30, 'DeviceName': 'Microwave', 'Date': thisday, 'Usage': microwaveM_F()},
+                        {'DeviceID': 28, 'DeviceName': 'Stove', 'Date': thisday, 'Usage': stoveM_F()},
+                        {'DeviceID': 29, 'DeviceName': 'Oven', 'Date': thisday, 'Usage': ovenM_F()},
+                        {'DeviceID': 7, 'DeviceName': 'livingRoomTv', 'Date': thisday, 'Usage': livingRoomTvM_F()},
+                        {'DeviceID': 7, 'DeviceName': 'bedroomTv', 'Date': thisday, 'Usage': bedroomTvM_F()},
+                        {'DeviceID': 100, 'DeviceName': 'bathsShowerWater', 'Date': thisday, 'Usage': bathsShowerWaterM_F()},
+                        {'DeviceID': 101, 'DeviceName': 'bathsBathWater', 'Date': thisday, 'Usage': bathsBathWaterM_F()},
+                        {'DeviceID': 102, 'DeviceName': 'bathsShowerWaterElectric', 'Date': thisday, 'Usage': bathsShowerElectricalM_F()},
+                        {'DeviceID': 103, 'DeviceName': 'bathsBathWaterElectric', 'Date': thisday, 'Usage': bathsBathElectricalM_F()}]
+                
+                # if only one 0= MON, 2=WED, 4=FRI, 6=SUN for 4 times per week
+                if (dayofweek == 0 or dayofweek == 2 or dayofweek == 4 or dayofweek == 6):
+                    # Dictionary that we want to add as a new row 4 days per week
+                    dict = [{'DeviceID': 104, 'DeviceName': 'dishwasherWater', 'Date': thisday, 'Usage': dishwasherWaterWeekly()},
+                            {'DeviceID': 104, 'DeviceName': 'dishwasherHWElectrical', 'Date': thisday, 'Usage': dishwasherHWElectricalWeekly()},
+                            {'DeviceID': 104, 'DeviceName': 'dishwasherHWElectrical', 'Date': thisday, 'Usage': dishwasherElectricalWeekly()},
+                            {'DeviceID': 105, 'DeviceName': 'clotheswasherWater', 'Date': thisday, 'Usage': clotheswasherWaterWeekly()},
+                            {'DeviceID': 105, 'DeviceName': 'clotheswasherHWElectrical', 'Date': thisday, 'Usage': clotheswasherHWElectricalWeekly()},
+                            {'DeviceID': 105, 'DeviceName': 'clotheswasherElectrical', 'Date': thisday, 'Usage': clotheswasherElectricalWeekly()},
+                            {'DeviceID': 106, 'DeviceName': 'clothesDryer', 'Date': thisday, 'Usage': clothesdryerElectricalWeekly()}]
+            
+            # if 5 or 6 equals weekend
+            #if (dayofweek >= 5 and dayofweek <=6):
+            else:
+                #print("WEEKEND")
+                # Dictionary that we want to add as a new row on weekends
+                dict = [{'DeviceID': 30, 'DeviceName': 'MicrowaveS', 'Date': thisday, 'Usage': microwaveS_S()},
+                        {'DeviceID': 28, 'DeviceName': 'StoveS', 'Date': thisday, 'Usage': stoveS_S()},
+                        {'DeviceID': 29, 'DeviceName': 'OvenS', 'Date': thisday, 'Usage': ovenS_S()},
+                        {'DeviceID': 7, 'DeviceName': 'livingRoomTvS', 'Date': thisday, 'Usage': livingRoomTvS_S()},
+                        {'DeviceID': 7, 'DeviceName': 'bedroomTvS', 'Date': thisday, 'Usage': bedroomTvS_S()},
+                        {'DeviceID': 100, 'DeviceName': 'bathsShowerWaterS', 'Date': thisday, 'Usage': bathsShowerWaterS_S()},
+                        {'DeviceID': 101, 'DeviceName': 'bathsBathWaterS', 'Date': thisday, 'Usage': bathsBathWaterS_S()},
+                        {'DeviceID': 102, 'DeviceName': 'bathsShowerWaterElectricS', 'Date': thisday, 'Usage': bathsShowerElectricalS_S()},
+                        {'DeviceID': 103, 'DeviceName': 'bathsBathWaterElectricS', 'Date': thisday, 'Usage': bathsBathElectricalS_S()}]
+                        
+           
+       
+            # Pass the dictionary as an argument to the writerow()
+            dictwriter_object.writerows(dict)
+        
+            index = index + 1
+
+# Close the file object
+f_object.close()
+
+      
 # Driver Code
 
 watts = 3500
@@ -451,5 +492,4 @@ print(f"The electrical cost for the Clothes Washer energy is {ans} at 4 uses per
 ans = clothesdryerElectricalWeekly ()
 print(f"The electrical cost for the Clothes Dryer energy is {ans} at 4 uses per week.")
 
-today = str(date.today())
-writeToCSV(today)
+
