@@ -366,3 +366,12 @@ DeviceID,DeviceName,Date,Usage
 105,clotheswasherHWElectrical,2022-11-14,2.4480000000000004
 105,clotheswasherElectrical,2022-11-14,0.12
 106,clothesDryer,2022-11-14,0.72
+30,Microwave,2022-11-15,0.044
+28,Stove,2022-11-15,0.105
+29,Oven,2022-11-15,0.36
+7,livingRoomTv,2022-11-15,0.30528
+7,bedroomTv,2022-11-15,0.024
+100,bathsShowerWater,2022-11-15,0.16844919786096257
+101,bathsBathWater,2022-11-15,0.2021390374331551
+102,bathsShowerWaterElectric,2022-11-15,1.1700000000000002
+103,bathsBathWaterElectric,2022-11-15,1.4040000000000001
