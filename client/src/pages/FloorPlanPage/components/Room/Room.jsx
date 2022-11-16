@@ -4,6 +4,7 @@ import { useRooms } from 'contexts/RoomsContext';
 import styled from 'styled-components';
 import Device from '../Device';
 import DeviceStateModal from '../DeviceStateModal';
+import HVACStateModal from '../HVACStateModal';
 
 const Container = styled.div`
     position: absolute;
@@ -45,6 +46,17 @@ const Room = (props) => {
         updateDevice(roomId, deviceId, targetDevice);
     };
 
+    const handleDeviceTempChange = (deviceId, temp) => {
+        // TODO: Make POST request to change device state
+        // Note: The POST request should return updated device object
+        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+        if (!targetDevice) {
+            return;
+        }
+        targetDevice.temp = temp;
+        updateDevice(roomId, deviceId, targetDevice);
+    };
+
     return (
         <Container
             style={{
@@ -79,7 +91,8 @@ const Room = (props) => {
                 const isClickable =
                     lowercaseName.includes('light') ||
                     lowercaseName.includes('lamp') ||
-                    lowercaseName.includes('overhead');
+                    lowercaseName.includes('overhead') ||
+                    lowercaseName.includes('hvac');
                 return (
                     <Device
                         key={device.deviceId}
@@ -88,7 +101,7 @@ const Room = (props) => {
                         x={device.x}
                         y={device.y}
                         state={device.state}
-                        dynamicBackground={isClickable}
+                        dynamicBackground // All devices should light up when enabled
                         square={square}
                         direction={direction}
                         scale={scale}
@@ -96,14 +109,25 @@ const Room = (props) => {
                     />
                 );
             })}
-            {modalDeviceId !== null && modalDevice !== null && (
-                <DeviceStateModal
-                    name={modalDevice.name}
-                    state={modalDevice.state}
-                    onChange={(state) => handleDeviceStateChange(modalDeviceId, state)}
-                    onClose={() => setModalDeviceId(null)}
-                />
-            )}
+            {modalDeviceId !== null &&
+                modalDevice !== null &&
+                (modalDevice.name.toLowerCase().includes('hvac') ? (
+                    <HVACStateModal
+                        name={modalDevice.name}
+                        temp={modalDevice.temp ?? 0}
+                        onTempChange={(temp) => handleDeviceTempChange(modalDeviceId, temp)}
+                        externalTemp={0}
+                        internalTemp={0}
+                        onClose={() => setModalDeviceId(null)}
+                    />
+                ) : (
+                    <DeviceStateModal
+                        name={modalDevice.name}
+                        state={modalDevice.state}
+                        onChange={(state) => handleDeviceStateChange(modalDeviceId, state)}
+                        onClose={() => setModalDeviceId(null)}
+                    />
+                ))}
         </Container>
     );
 };

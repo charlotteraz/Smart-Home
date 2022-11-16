@@ -2,7 +2,7 @@ import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
 const useRequest = () => {
-    const TIMEOUT = 5000;
+    const TIMEOUT = 25000;
     const TIMEOUT_MESSAGE = 'Something took too long.';
 
     /**

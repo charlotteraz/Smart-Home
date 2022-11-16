@@ -8,6 +8,7 @@ const Colors = {
     red: '#ed4337',
     lightRed: '#ff918f',
     loginButtonColor: '#1a4568',
+    lightGray: '#dedede',
 
     lightBlue: '#5f84a1',
     darkBlue: '#1a4568',

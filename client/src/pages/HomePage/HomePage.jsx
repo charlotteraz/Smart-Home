@@ -6,6 +6,7 @@ import useRequest from 'hooks/useRequest';
 import Navbar from 'pages/HomePage/components/Navbar';
 import Routes from 'constants/routes';
 import URLS from 'constants/urls';
+import Debug from 'util/debug';
 
 const Container = styled.div`
     display: flex;
@@ -37,7 +38,8 @@ const HomePage = () => {
             try {
                 const respRooms = await request.get(URLS.rooms);
                 setRooms(respRooms);
-            } catch {
+            } catch (errMessage) {
+                Debug.log(errMessage);
                 setRooms([]);
             }
             // Shows the floor plan first

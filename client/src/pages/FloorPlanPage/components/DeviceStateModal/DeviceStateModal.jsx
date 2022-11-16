@@ -9,8 +9,7 @@ import { Strut } from 'components/Layout';
 const ModalContainer = styled.div`
     position: relative;
     align-self: center;
-    width: 200px;
-    height: 125px;
+    width: 225px;
     border-radius: 10px;
     background-color: ${Colors.offBlack};
     border: solid 4px ${Colors.white};
@@ -26,6 +25,7 @@ const HorizontalContainer = styled.div`
     display: flex;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
 `;
 
 const CloseButton = styled(Button)`

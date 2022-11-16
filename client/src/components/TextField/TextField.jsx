@@ -1,5 +1,5 @@
-// import Colors from 'constants/colors';
 import React from 'react';
+import Colors from 'constants/colors';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -14,13 +14,25 @@ const StyledInput = styled.input`
 `;
 
 const TextField = (props) => {
-    const { className, placeholder, value, onChange, type = 'text' } = props;
+    const {
+        className,
+        placeholder,
+        value,
+        onChange,
+        type = 'text',
+        readOnly = false,
+        disabled = false,
+    } = props;
+
     return (
         <StyledInput
             className={className}
+            style={disabled ? { backgroundColor: Colors.lightGray } : {}}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            readOnly={readOnly}
+            disabled={disabled}
             type={type}
         />
     );

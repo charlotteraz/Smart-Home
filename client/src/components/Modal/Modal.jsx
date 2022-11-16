@@ -27,6 +27,7 @@ const Modal = (props) => {
                 },
             }}
             contentElement={contentElement}
+            ariaHideApp={false}
             {...otherProps}
         />
     );

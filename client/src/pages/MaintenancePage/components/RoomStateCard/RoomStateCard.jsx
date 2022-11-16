@@ -5,6 +5,7 @@ import { Strut } from 'components/Layout';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
 import { useRooms } from 'contexts/RoomsContext';
+import HVACStateField from '../HVACStateField';
 
 const Container = styled.div`
     background-color: ${Colors.white};
@@ -40,19 +41,39 @@ const RoomStateCard = (props) => {
         updateDevice(roomId, deviceId, targetDevice);
     };
 
+    const handleTempChange = (deviceId, temp) => {
+        // TODO: Make POST request to change device state
+        // Note: The POST request should return updated device object
+        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+        if (!targetDevice) {
+            return;
+        }
+        targetDevice.temp = temp;
+        updateDevice(roomId, deviceId, targetDevice);
+    };
+
     return (
         <Container>
             <Title>{name}</Title>
             <Strut vertical size={20} />
             <FieldContainer>
-                {devices.map((device) => (
-                    <DeviceStateField
-                        key={device.deviceId}
-                        name={device.name}
-                        state={device.state}
-                        onChange={(state) => handleStateChange(device.deviceId, state)}
-                    />
-                ))}
+                {devices.map((device) =>
+                    device.name.toLowerCase().includes('hvac') ? (
+                        <HVACStateField
+                            key={device.deviceId}
+                            name={device.name}
+                            temp={device.temp ?? 0}
+                            onTempChange={(temp) => handleTempChange(device.deviceId, temp)}
+                        />
+                    ) : (
+                        <DeviceStateField
+                            key={device.deviceId}
+                            name={device.name}
+                            state={device.state}
+                            onChange={(state) => handleStateChange(device.deviceId, state)}
+                        />
+                    )
+                )}
             </FieldContainer>
         </Container>
     );
