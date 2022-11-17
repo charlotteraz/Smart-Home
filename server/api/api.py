@@ -13,7 +13,35 @@ Port = 5432
 DB_Name = "Team1DB"
 DB_Host = "138.26.48.83"
 
+class Device():
+    def __init__(self, deviceId, state):
+        self.deviceId = deviceId
+        self.state = state
+    
+    def set_state(self, state):
+        self.state = state
 
+class HVAC():
+    def __init__(self, internal_temp, external_temp, target_temp):
+        self.internal_temp = internal_temp
+        self.external_temp = external_temp
+        self.target_temp = target_temp
+        
+    def set_target(self, target_temp):
+        self.target_temp = target_temp
+        
+def create_objects():
+    conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM devices")
+    devices = cur.fetchall()
+    device_objects = {}
+    for device in devices:
+        device_object = Device(device[0], False)
+        device_objects[device[0]] = device_object
+    return device_objects
+    
+global_devices = create_objects()
 
 class login_validate(Resource):
     def post(self):
@@ -62,9 +90,62 @@ class get_rooms(Resource):
             rooms_list.append(room_dict)
         conn.close()
         return jsonify(rooms_list)
+    
+class device_state(Resource):
+    def post(self):
+        json = request.get_json()
+        device = global_devices[json['deviceId']]
+        device.set_state(json['state'])
+        return jsonify({"deviceId" : device.deviceId, "state" : device.state})
+        
+    def get():
+        state_list = []
+        for device in global_devices:
+            state_dict = {}
+            state_dict['deviceId'] = device
+            state_dict['state'] = global_devices[device]
+            state_list.append(state_dict)
+        return jsonify(state_list)
+
+class get_electricity(Resource):
+    def get(self):
+        conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
+        cur = conn.cursor()
+        cur.execute(f"SELECT * FROM electricity;")
+        entries = cur.fetchall()
+        entry_list = []
+        for entry in entries:
+            entry_dict = {}
+            entry_dict['entryId'] = entry[0]
+            entry_dict['deviceId'] = entry[1]
+            entry_dict['name'] = entry[2]
+            entry_dict['date'] = entry[3]
+            entry_dict['usage'] = entry[4]
+            entry_dict['cost'] = entry[5]
+            entry_list.append(entry_dict)
+        return jsonify(entry_list)
+
+class get_water(Resource):
+    def get(self):
+        conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
+        cur = conn.cursor()
+        cur.execute(f"SELECT * FROM water;")
+        entries = cur.fetchall()
+        entry_list = []
+        for entry in entries:
+            entry_dict = {}
+            entry_dict['entryId'] = entry[0]
+            entry_dict['deviceId'] = entry[1]
+            entry_dict['name'] = entry[2]
+            entry_dict['date'] = entry[3]
+            entry_dict['usage'] = entry[4]
+            entry_dict['cost'] = entry[5]
+            entry_list.append(entry_dict)
+        return jsonify(entry_list)
 
 api.add_resource(login_validate, '/login_validate', '/api/login')
 api.add_resource(get_rooms, '/get_rooms', '/api/rooms')
+api.add_resource(device_state, '/device_state', '/api/devices')
 
 if __name__ == '__main__':
     app.run(debug=True)
