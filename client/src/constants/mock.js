@@ -350,3 +350,33 @@ export const ROOMS = [
         ],
     },
 ];
+
+export const ELECTRICITY_USAGE_DATA = [
+    { month: 'January', wattage: 500 },
+    { month: 'February', wattage: 650 },
+    { month: 'March', wattage: 800 },
+    { month: 'April', wattage: 725 },
+    { month: 'May', wattage: 675 },
+    { month: 'June', wattage: 450 },
+    { month: 'July', wattage: 500 },
+    { month: 'August', wattage: 750 },
+    { month: 'September', wattage: 800 },
+    { month: 'October', wattage: 775 },
+    { month: 'November', wattage: 825 },
+    { month: 'December', wattage: 950 },
+];
+
+export const WATER_USAGE_DATA = [
+    { month: 'January', volume: 250 },
+    { month: 'February', volume: 235 },
+    { month: 'March', volume: 189 },
+    { month: 'April', volume: 290 },
+    { month: 'May', volume: 315 },
+    { month: 'June', volume: 310 },
+    { month: 'July', volume: 265 },
+    { month: 'August', volume: 240 },
+    { month: 'September', volume: 190 },
+    { month: 'October', volume: 150 },
+    { month: 'November', volume: 230 },
+    { month: 'December', volume: 280 },
+];
