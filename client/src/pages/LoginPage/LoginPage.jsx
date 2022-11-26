@@ -23,10 +23,10 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-    color: ${Colors.darkBlue};
-    font-size: 25pt;
+    color: ${Colors.darkerBlue};
+    font-size: 20pt;
     font-family: ${Fonts.titleFont};
-    font-weight: 400;
+    font-weight: 900;
     margin-top: -30px;
 `;
 
@@ -36,16 +36,22 @@ const Error = styled.h5`
 
 const FieldBox = styled.div`
     display: flex;
-    width: 300px;
-    height: 350px;
+    width: 350px;
+    height: 500px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     row-gap: 15px;
     align-self: center;
-    padding: 40px;
+    padding: 50px;
     background-color: ${Colors.white};
-    box-shadow: 5px 5px ${Colors.blue};
+    border-radius: 10px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(white, white) padding-box,
+        linear-gradient(to right, ${Colors.darkerBlue}, ${Colors.strongBlue}) border-box;
+    border-top: 7px solid transparent;
 `;
 
 const LoginButton = styled(Button)`

@@ -11,18 +11,23 @@ import Control from './components/Control';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     height: 100%;
     padding: 15px 0;
+    align-self: center;
+    margin-top: 30px;
 `;
 
 const FloorPlanContainer = styled.div`
     position: relative;
     max-width: 100%;
-    height: 95%;
+    height: 85%;
     margin: 0 15px;
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
     // Add fade-in animation to allow Floor Plan view to center
     opacity: 0;
     animation: fadeIn 500ms ease-in-out 100ms forwards;
@@ -41,7 +46,10 @@ const FloorPlan = styled.div`
     align-self: center;
     width: 100%;
     height: 100%;
-    background-color: ${Colors.loginButtonColor};
+    background-color: ${Colors.darkerBlue};
+    box-shadow:  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
     overflow: scroll;
     // Add right and bottom padding to scroll view
     & > :after {
@@ -69,13 +77,14 @@ const FloorPlan = styled.div`
 
 const Title = styled.h1`
     margin: 0 25px;
+    font-weight: 400;
     color: ${Colors.darkBlue};
     font-family: ${Fonts.titleFont};
 `;
 
 const Error = styled.h2`
     align-self: center;
-    margin: 0 25px;
+    margin: 0 20px;
     color: ${Colors.red};
     font-family: ${Fonts.titleFont};
 `;
@@ -85,7 +94,7 @@ const FloorPlanPage = () => {
     const ZOOM_INCREMENT = 0.1;
     const MIN_SCALE = 0.6;
     const MAX_SCALE = 1.4;
-    const [scale, setScale] = useState(0.7);
+    const [scale, setScale] = useState(0.6);
     const { rooms } = useRooms();
     const [error, setError] = useState(null);
     const hasCentered = useRef(false);

@@ -11,21 +11,25 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 15px 0 50px 0;
+    padding: 15px 0 40px 0;
     align-items: center;
+    justify-content: center;
 `;
 
 const HorizontalContainer = styled.div`
     display: flex;
-    width: 95%;
+    width: 80%;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 50px;
+    margin-top: -20px;
 `;
 
 const Title = styled.h1`
     align-self: flex-start;
-    margin: 0 25px;
+    margin: 0 12%;
+    margin-top: 30px;
+    font-weight: 400;
     color: ${Colors.darkBlue};
     font-family: ${Fonts.titleFont};
 `;
@@ -63,12 +67,12 @@ const UsageDataPage = () => {
                 <LineChart
                     title="Electricity"
                     titleColor={Colors.white}
-                    tableBackgroundColor={Colors.offBlack}
+                    tableBackgroundColor={Colors.darkerBlue}
                     tableColor={Colors.white}
                     lineStroke={Colors.white}
                     gridStroke={Colors.white}
-                    width={700}
-                    height={500}
+                    width={500}
+                    height={420}
                     margin={{ right: 10 }}
                     data={getShorthandMonths(ELECTRICITY_USAGE_DATA)}
                     xDataKey="month"
@@ -79,12 +83,12 @@ const UsageDataPage = () => {
                 <LineChart
                     title="Water"
                     titleColor={Colors.white}
-                    tableBackgroundColor={Colors.offBlack}
+                    tableBackgroundColor={Colors.darkBlue}
                     tableColor={Colors.white}
                     lineStroke={Colors.white}
                     gridStroke={Colors.white}
-                    width={700}
-                    height={500}
+                    width={500}
+                    height={420}
                     margin={{ right: 10 }}
                     data={getShorthandMonths(WATER_USAGE_DATA)}
                     xDataKey="month"
@@ -97,12 +101,12 @@ const UsageDataPage = () => {
             <Table
                 title="Electricity"
                 titleColor={Colors.white}
-                titleBackgroundColor={Colors.offBlack}
+                titleBackgroundColor={Colors.darkerBlue}
                 columnColor={Colors.white}
-                columnBackgroundColor={Colors.offBlack}
+                columnBackgroundColor={Colors.darkBlue}
                 cellColor={Colors.offBlack}
                 cellBackgroundColor={Colors.offWhite}
-                width={800}
+                width={1100}
                 data={getCombinedData([ELECTRICITY_USAGE_DATA, WATER_USAGE_DATA])}
                 columns={[
                     { Header: 'Month', accessor: 'month' },

@@ -1,5 +1,5 @@
 const Fonts = {
-    titleFont: 'Bebas Neue',
+    titleFont: 'Lato',
 };
 
 export default Fonts;

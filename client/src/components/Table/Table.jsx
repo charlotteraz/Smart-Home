@@ -43,7 +43,9 @@ const Table = (props) => {
                         backgroundColor: titleBackgroundColor ?? Colors.offBlack,
                         color: titleColor ?? Colors.white,
                         border: `solid 1px ${titleColor ?? Colors.white}`,
+                        borderRadius: '5px',
                         padding: '5px 0',
+                        marginTop: '60px',
                     }}
                 >
                     {title}
@@ -59,9 +61,9 @@ const Table = (props) => {
                                     style={{
                                         backgroundColor: columnBackgroundColor ?? Colors.offBlack,
                                         color: columnColor ?? Colors.white,
-                                        border: `solid 1px ${columnColor ?? Colors.white}`,
                                         padding: `10px 0`,
                                         fontWeight: 'bold',
+                                        borderRadius: '5px',
                                     }}
                                 >
                                     {column.render('Header')}
@@ -81,7 +83,7 @@ const Table = (props) => {
                                         style={{
                                             backgroundColor: cellBackgroundColor ?? Colors.offWhite,
                                             color: cellColor ?? Colors.offBlack,
-                                            border: `solid 1px ${cellColor ?? Colors.offBlack}`,
+                                            border: `solid 1px ${cellColor ?? Colors.lightGray}`,
                                             padding: 10,
                                         }}
                                     >
