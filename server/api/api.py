@@ -22,13 +22,14 @@ class Device():
         self.state = state
 
 class HVAC():
-    def __init__(self, internal_temp, external_temp, target_temp):
+    def __init__(self, internal_temp = 70, external_temp = 70, target_temp = 70):
         self.internal_temp = internal_temp
         self.external_temp = external_temp
         self.target_temp = target_temp
         
     def set_target(self, target_temp):
         self.target_temp = target_temp
+    
         
 def create_objects():
     conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
@@ -43,6 +44,7 @@ def create_objects():
     
 global_devices = create_objects()
 
+hvac = HVAC()
 class login_validate(Resource):
     def post(self):
         #Takes in a post request with login info in the form of a json and check it against the database to confirm there is a user that matches that username password pair and returns a json with the userId on a valid pair or a different json with an incorrect login message
@@ -98,7 +100,7 @@ class device_state(Resource):
         device.set_state(json['state'])
         return jsonify({"deviceId" : device.deviceId, "state" : device.state})
         
-    def get():
+    def get(self):
         state_list = []
         for device in global_devices:
             state_dict = {}
@@ -143,9 +145,26 @@ class get_water(Resource):
             entry_list.append(entry_dict)
         return jsonify(entry_list)
 
+class HVAC(Resource):
+    def get(self):
+        hvac_dict = {}
+        hvac_dict['target'] = hvac.target_temp
+        hvac_dict['internal'] = hvac.internal_temp
+        hvac_dict['external'] = hvac.external_temp
+        return jsonify(hvac_dict)
+    
+    def post(self):
+        json = request.get_json()
+        hvac.set_target(json['target'])
+        return jsonify({['target'] : hvac.target_temp})
+
 api.add_resource(login_validate, '/login_validate', '/api/login')
 api.add_resource(get_rooms, '/get_rooms', '/api/rooms')
 api.add_resource(device_state, '/device_state', '/api/devices')
+api.add_resource(get_water, '/water_usage', '/api/water')
+api.add_resource(get_electricity, '/electricity_usage', '/api/electricity')
+api.add_resource(HVAC, '/hvac', '/api/hvac')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

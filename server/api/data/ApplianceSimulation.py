@@ -37,28 +37,32 @@ def lightBulbs() -> float:
     watts = 60
     numberUnits = 1
     cost = electric(watts) * numberUnits
-    return cost
+    usage_cost = (watts, cost)
+    return usage_cost
 
 def bathFan() -> float:
     # Each fan uses 30 watts per hour
     watts = 30
     numberUnits = 1
     cost = electric(watts) * numberUnits
-    return cost
+    usage_cost = (watts, cost)
+    return usage_cost
 
 def hvac() -> float:
     # HVAC uses 3500 watts per hour
     watts = 3500
     numberUnits = 1
     cost = electric(watts) * numberUnits
-    return cost
+    usage_cost = (watts, cost)
+    return usage_cost
 
 def refrigerator() -> float:
     # Refrigerator uses 150 watts per hour
     watts = 150
     numberUnits = 1
     cost = electric(watts) * numberUnits
-    return cost   
+    usage_cost = (watts, cost)
+    return usage_cost   
     
 """ Daily usage functions to import constant data"""
 
@@ -70,7 +74,8 @@ def microwaveM_F() -> float:
     min_day = 20 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost
 
 def microwaveS_S() -> float:
     # Week End microwave uses 1100 watts per hour at 30 minutes per day
@@ -78,7 +83,8 @@ def microwaveS_S() -> float:
     min_day = 30 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost
 
 """ Stove """
 
@@ -88,7 +94,8 @@ def stoveM_F() -> float:
     min_day = 15 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost  
+    usage_cost = (watts, cost)
+    return usage_cost  
 
 def stoveS_S() -> float:
     #  Week End stove uses 3500 watts per hour at 30 minutes per day
@@ -96,7 +103,8 @@ def stoveS_S() -> float:
     min_day = 30 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost
 
 """ Oven """
 
@@ -106,7 +114,8 @@ def ovenM_F() -> float:
     min_day = 45 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost  
+    usage_cost = (watts, cost)
+    return usage_cost 
 
 def ovenS_S() -> float:
     #  Week End oven uses 4000 watts per hour at 60 minutes per day
@@ -114,7 +123,8 @@ def ovenS_S() -> float:
     min_day = 60 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost 
 
 """ Living Room TV """
 
@@ -124,7 +134,8 @@ def livingRoomTvM_F() -> float:
     min_day = 240 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost  
+    usage_cost = (watts, cost)
+    return usage_cost  
 
 def livingRoomTvS_S() -> float:
     #  Week End Living Room TV uses 636 watts per hour at 480 minutes per day
@@ -132,7 +143,8 @@ def livingRoomTvS_S() -> float:
     min_day = 480 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost 
 
 """ Bedroom TV """
 
@@ -142,7 +154,8 @@ def bedroomTvM_F() -> float:
     min_day = 120 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost  
+    usage_cost = (watts, cost)
+    return usage_cost 
 
 def bedroomTvS_S() -> float:
     #  Week End oven uses 636 watts per hour at 60 minutes per day
@@ -150,7 +163,8 @@ def bedroomTvS_S() -> float:
     min_day = 240 / 60
     numberUnits = 1
     cost = (electric(watts) * min_day) * numberUnits
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost
 
 """  Baths"""
 
@@ -159,28 +173,32 @@ def bathsShowerWaterM_F() -> float:
     gallons = 25
     perDay = 2
     cost = (water(gallons) * perDay) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsBathWaterM_F() -> float:
      #  Week Day bath uses 30 gallons per bath at 2 per day
     gallons = 30
     perDay = 2
     cost = (water(gallons) * perDay) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsShowerWaterS_S() -> float:
      #  Week End shower uses 25 gallons per bath at 2 per day
     gallons = 25
     perDay = 3
     cost = (water(gallons) * perDay) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsBathWaterS_S() -> float:
      #  Week End bath uses 30 gallons per bath at 2 per day
     gallons = 30
     perDay = 3
     cost = (water(gallons) * perDay) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsShowerElectricalM_F() -> float:
      #  Week Day shower uses 25 gallons at 65% hot water per bath at 2 per day
@@ -188,7 +206,8 @@ def bathsShowerElectricalM_F() -> float:
     hotWaterPercent = 0.65
     perDay = 2
     cost = (waterHeater(gallons * hotWaterPercent) * perDay)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsBathElectricalM_F() -> float:
      #  Week Day shower uses 30 gallons at 65% hot water per bath at 2 per day
@@ -196,7 +215,8 @@ def bathsBathElectricalM_F() -> float:
     hotWaterPercent = 0.65
     perDay = 2
     cost = (waterHeater(gallons * hotWaterPercent) * perDay)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsShowerElectricalS_S() -> float:
      #  Week Day shower uses 25 gallons at 65% hot water per bath at 2 per day
@@ -204,7 +224,8 @@ def bathsShowerElectricalS_S() -> float:
     hotWaterPercent = 0.65
     perDay = 3
     cost = (waterHeater(gallons * hotWaterPercent) * perDay)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def bathsBathElectricalS_S() -> float:
      #  Week Day shower uses 30 gallons at 65% hot water per bath at 2 per day
@@ -212,7 +233,8 @@ def bathsBathElectricalS_S() -> float:
     hotWaterPercent = 0.65
     perDay = 3
     cost = (waterHeater(gallons * hotWaterPercent) * perDay)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 
 """ Dishwasher"""
@@ -224,7 +246,8 @@ def dishwasherWaterWeekly() -> float:
     gallons = 6
     perWeek = 4
     cost = (water(gallons) * perWeek) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def dishwasherHWElectricalWeekly() -> float:
     # Weekly dishwasher uses 1800 watts, 6 gallons per load, 45 minutes per load, 
@@ -233,7 +256,8 @@ def dishwasherHWElectricalWeekly() -> float:
     gallons = 6    
     perWeek = 4
     cost = (waterHeater(gallons) * perWeek)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def dishwasherElectricalWeekly ()-> float:
     # Weekly dishwasher uses 1800 watts, 6 gallons per load, 45 minutes per load, 
@@ -243,7 +267,8 @@ def dishwasherElectricalWeekly ()-> float:
     min_day = 45 / 60
     perWeek = 4
     cost = (electric(watts) * min_day) * perWeek
-    return cost 
+    usage_cost = (watts, cost)
+    return usage_cost 
 
 """ Weekly usage functions to import data: Clothes Washer"""
 
@@ -254,7 +279,8 @@ def clotheswasherWaterWeekly () -> float:
     gallons = 20
     perWeek = 4
     cost = (water(gallons) * perWeek) 
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def clotheswasherHWElectricalWeekly () -> float:
     # Weekly clothes washer uses 500 watts, 20 gallons per load at 85% hot water and 15% cold water
@@ -264,7 +290,8 @@ def clotheswasherHWElectricalWeekly () -> float:
     perWeek = 4
     hotWaterPercent = 0.85
     cost = (waterHeater(gallons * hotWaterPercent) * perWeek)    
-    return cost
+    usage_cost = (gallons, cost)
+    return usage_cost
 
 def clotheswasherElectricalWeekly ()-> float:
     # Weekly clothes washer uses 500 watts, 20 gallons per load at 85% hot water and 15% cold water
@@ -274,7 +301,8 @@ def clotheswasherElectricalWeekly ()-> float:
     min_day = 30 / 60
     perWeek = 4
     cost = (electric(watts) * min_day) * perWeek
-    return cost     
+    usage_cost = (watts, cost)
+    return usage_cost  
 
 def clothesdryerElectricalWeekly ()-> float:
     # Weekly clothes washer uses 3000 watts
@@ -284,7 +312,8 @@ def clothesdryerElectricalWeekly ()-> float:
     min_day = 30 / 60
     perWeek = 4
     cost = (electric(watts) * min_day) * perWeek
-    return cost     
+    usage_cost = (watts, cost)
+    return usage_cost    
 
 
 def temperatureDiffernce(internalTemp, externalTemp):
@@ -314,11 +343,11 @@ daystotal = tday - startdate
 #print(daystotal.days)
 
 # list of column names
-field_names = ['DeviceID', 'DeviceName', 'Date', 'Usage']
+field_names = ['DeviceID', 'Date', 'Usage', 'Cost']
 
 # Open CSV file in append mode
 # Create a file object for this file
-with open('applianceR.csv', 'a', newline='') as f_object:
+with open('./CSVs/electricity.csv', 'w+', newline='') as f_object:
 
         # Pass the file object and a list
         # of column names to DictWriter()
@@ -345,41 +374,96 @@ with open('applianceR.csv', 'a', newline='') as f_object:
             if (dayofweek >= 0 and dayofweek <=4):
                 #print("WEEKDAY")
                 # Dictionary that we want to add as a new row on weekdays
-                dict = [{'DeviceID': 30, 'DeviceName': 'Microwave', 'Date': thisday, 'Usage': microwaveM_F()},
-                        {'DeviceID': 28, 'DeviceName': 'Stove', 'Date': thisday, 'Usage': stoveM_F()},
-                        {'DeviceID': 29, 'DeviceName': 'Oven', 'Date': thisday, 'Usage': ovenM_F()},
-                        {'DeviceID': 7, 'DeviceName': 'livingRoomTv', 'Date': thisday, 'Usage': livingRoomTvM_F()},
-                        {'DeviceID': 7, 'DeviceName': 'bedroomTv', 'Date': thisday, 'Usage': bedroomTvM_F()},
-                        {'DeviceID': 100, 'DeviceName': 'bathsShowerWater', 'Date': thisday, 'Usage': bathsShowerWaterM_F()},
-                        {'DeviceID': 101, 'DeviceName': 'bathsBathWater', 'Date': thisday, 'Usage': bathsBathWaterM_F()},
-                        {'DeviceID': 102, 'DeviceName': 'bathsShowerWaterElectric', 'Date': thisday, 'Usage': bathsShowerElectricalM_F()},
-                        {'DeviceID': 103, 'DeviceName': 'bathsBathWaterElectric', 'Date': thisday, 'Usage': bathsBathElectricalM_F()}]
+                dict = [{'DeviceID': 30, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': microwaveM_F()[0], 'Cost': microwaveM_F()[1]},
+                        {'DeviceID': 28, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': stoveM_F()[0], 'Cost': stoveM_F()[1] },
+                        {'DeviceID': 29, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': ovenM_F()[0], 'Cost': ovenM_F()[1]},
+                        {'DeviceID': 9,  'Date': thisday.strftime("%m/%d/%Y"), 'Usage': livingRoomTvM_F()[0], 'Cost':livingRoomTvM_F()[1]},
+                        {'DeviceID': 7,  'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bedroomTvM_F()[0], 'Cost': bedroomTvM_F()[1]},
+                        {'DeviceID': 47, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsShowerElectricalM_F()[0]/2, 'Cost': bathsShowerElectricalM_F()[1]/2},
+                        {'DeviceID': 50, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsShowerElectricalM_F()[0]/2, 'Cost': bathsShowerElectricalM_F()[1]/2},
+                        {'DeviceID': 50, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsBathElectricalM_F()[0]/2, 'Cost': bathsBathElectricalM_F()[1]/2},
+                        {'DeviceID': 47, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsBathElectricalM_F()[0]/2, 'Cost': bathsBathElectricalM_F()[1]/2},
+                        {'DeviceID': 2, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 6, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 13, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 25, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 35, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 39, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        {'DeviceID': 43, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': lightBulbs()[0], 'Cost': lightBulbs()[1]},
+                        ]
                 
                 # if only one 0= MON, 2=WED, 4=FRI, 6=SUN for 4 times per week
                 if (dayofweek == 0 or dayofweek == 2 or dayofweek == 4 or dayofweek == 6):
                     # Dictionary that we want to add as a new row 4 days per week
-                    dict = [{'DeviceID': 104, 'DeviceName': 'dishwasherWater', 'Date': thisday, 'Usage': dishwasherWaterWeekly()},
-                            {'DeviceID': 104, 'DeviceName': 'dishwasherHWElectrical', 'Date': thisday, 'Usage': dishwasherHWElectricalWeekly()},
-                            {'DeviceID': 104, 'DeviceName': 'dishwasherHWElectrical', 'Date': thisday, 'Usage': dishwasherElectricalWeekly()},
-                            {'DeviceID': 105, 'DeviceName': 'clotheswasherWater', 'Date': thisday, 'Usage': clotheswasherWaterWeekly()},
-                            {'DeviceID': 105, 'DeviceName': 'clotheswasherHWElectrical', 'Date': thisday, 'Usage': clotheswasherHWElectricalWeekly()},
-                            {'DeviceID': 105, 'DeviceName': 'clotheswasherElectrical', 'Date': thisday, 'Usage': clotheswasherElectricalWeekly()},
-                            {'DeviceID': 106, 'DeviceName': 'clothesDryer', 'Date': thisday, 'Usage': clothesdryerElectricalWeekly()}]
+                    dict = [{'DeviceID': 26, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': dishwasherHWElectricalWeekly()[0], 'Cost':dishwasherHWElectricalWeekly()[1]},
+                            {'DeviceID': 26, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': dishwasherElectricalWeekly()[0], 'Cost': dishwasherElectricalWeekly()[1]},
+                            {'DeviceID': 20, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': clotheswasherHWElectricalWeekly()[0], 'Cost': clotheswasherHWElectricalWeekly()[1]},
+                            {'DeviceID': 20, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': clotheswasherElectricalWeekly()[0], 'Cost': clotheswasherElectricalWeekly()[1]},
+                            {'DeviceID': 21, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': clothesdryerElectricalWeekly()[0], 'Cost': clothesdryerElectricalWeekly()[1]}]
             
             # if 5 or 6 equals weekend
             #if (dayofweek >= 5 and dayofweek <=6):
             else:
                 #print("WEEKEND")
                 # Dictionary that we want to add as a new row on weekends
-                dict = [{'DeviceID': 30, 'DeviceName': 'MicrowaveS', 'Date': thisday, 'Usage': microwaveS_S()},
-                        {'DeviceID': 28, 'DeviceName': 'StoveS', 'Date': thisday, 'Usage': stoveS_S()},
-                        {'DeviceID': 29, 'DeviceName': 'OvenS', 'Date': thisday, 'Usage': ovenS_S()},
-                        {'DeviceID': 7, 'DeviceName': 'livingRoomTvS', 'Date': thisday, 'Usage': livingRoomTvS_S()},
-                        {'DeviceID': 7, 'DeviceName': 'bedroomTvS', 'Date': thisday, 'Usage': bedroomTvS_S()},
-                        {'DeviceID': 100, 'DeviceName': 'bathsShowerWaterS', 'Date': thisday, 'Usage': bathsShowerWaterS_S()},
-                        {'DeviceID': 101, 'DeviceName': 'bathsBathWaterS', 'Date': thisday, 'Usage': bathsBathWaterS_S()},
-                        {'DeviceID': 102, 'DeviceName': 'bathsShowerWaterElectricS', 'Date': thisday, 'Usage': bathsShowerElectricalS_S()},
-                        {'DeviceID': 103, 'DeviceName': 'bathsBathWaterElectricS', 'Date': thisday, 'Usage': bathsBathElectricalS_S()}]
+                dict = [{'DeviceID': 30, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': microwaveS_S()[0], 'Cost': microwaveS_S()[1]},
+                        {'DeviceID': 28, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': stoveS_S()[0], 'Cost': stoveS_S()[1]},
+                        {'DeviceID': 29, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': ovenS_S()[0], 'Cost': ovenS_S()[1]},
+                        {'DeviceID': 9, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': livingRoomTvS_S()[0], 'Cost': livingRoomTvS_S()[1]},
+                        {'DeviceID': 7, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bedroomTvS_S()[0], 'Cost': bedroomTvS_S()[1]},
+                        {'DeviceID': 47, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsShowerElectricalS_S()[0], 'Cost': bathsShowerElectricalS_S()[1]},
+                        {'DeviceID': 50, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsBathElectricalS_S()[0], 'Cost': bathsBathElectricalS_S()[1]}]
+                        
+           
+       
+            # Pass the dictionary as an argument to the writerow()
+            dictwriter_object.writerows(dict)
+        
+            index = index + 1
+
+with open('./CSVs/water.csv', 'w+', newline='') as f_object:
+
+        # Pass the file object and a list
+        # of column names to DictWriter()
+        # You will get a object of DictWriter
+        dictwriter_object = DictWriter(f_object, fieldnames=field_names)
+    
+        # Pass the dictionary as an argument to the writeheader()
+        dictwriter_object.writeheader()
+
+
+        index = 0
+        while (index < daystotal.days):
+            tdelta = datetime.timedelta(days=index)
+            thisday = startdate + tdelta
+            #print(thisday)
+
+            # Find day of week where as Monday = 0 to Sunday = 6
+            # https://pynative.com/python-get-the-day-of-week/#:~:text=Use%20the%20weekday()%20method,its%20weekday%20number%20is%200
+            dayofweek = thisday.weekday()    
+                
+            # Print the number for day of week
+            #print (dayofweek)
+            # If >= 4 equals weekday
+            if (dayofweek >= 0 and dayofweek <=4):
+                #print("WEEKDAY")
+                # Dictionary that we want to add as a new row on weekdays
+                dict = [{'DeviceID': 47, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsShowerWaterM_F()[0], 'Cost': bathsShowerWaterM_F()[1]},
+                        {'DeviceID': 50, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsBathWaterM_F()[0], 'Cost': bathsBathWaterM_F()[1]}]
+                
+                # if only one 0= MON, 2=WED, 4=FRI, 6=SUN for 4 times per week
+                if (dayofweek == 0 or dayofweek == 2 or dayofweek == 4 or dayofweek == 6):
+                    # Dictionary that we want to add as a new row 4 days per week
+                    dict = [{'DeviceID': 26, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': dishwasherWaterWeekly()[0], 'Cost': dishwasherWaterWeekly()[1]},
+                            {'DeviceID': 20, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': clotheswasherWaterWeekly()[0], 'Cost': clotheswasherWaterWeekly()[1]}]
+            
+            # if 5 or 6 equals weekend
+            #if (dayofweek >= 5 and dayofweek <=6):
+            else:
+                #print("WEEKEND")
+                # Dictionary that we want to add as a new row on weekends
+                dict = [{'DeviceID': 47, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsShowerWaterS_S()[0], 'Cost': bathsShowerWaterS_S()[1]},
+                        {'DeviceID': 50, 'Date': thisday.strftime("%m/%d/%Y"), 'Usage': bathsBathWaterS_S()[0], 'Cost': bathsBathWaterS_S()[1]}]
                         
            
        

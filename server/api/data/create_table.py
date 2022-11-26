@@ -39,7 +39,28 @@ def create_devices():
     print(query)
     conn.close()
     
+def create_water():
+    conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
+    cur = conn.cursor()
+    cur.execute("DROP TABLE water;")
+    cur.execute("CREATE TABLE water(entryId SERIAL PRIMARY KEY, deviceId INTEGER, date DATE, usage FLOAT, cost FLOAT);")
+    conn.commit()
+    cur.execute(f"SELECT * FROM water;")
+    query = cur.fetchall()
+    print(query)
+    conn.close()
+    
+def create_electricity():
+    conn = psycopg2.connect(database=DB_Name, user=UserID, password=Password, host=DB_Host, port=Port)
+    cur = conn.cursor()
+    cur.execute("DROP TABLE electricity;")
+    cur.execute("CREATE TABLE electricity(entryId SERIAL PRIMARY KEY, deviceId INTEGER, date DATE, usage FLOAT, cost FLOAT);")
+    conn.commit()
+    cur.execute(f"SELECT * FROM electricity;")
+    query = cur.fetchall()
+    print(query)
+    conn.close()
+    
 if __name__ == '__main__':
-    create_users()
-    create_rooms()
-    create_devices()
+    create_water()
+    create_electricity()
