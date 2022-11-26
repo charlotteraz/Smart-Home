@@ -9,9 +9,10 @@ const Colors = {
     lightRed: '#ff918f',
     loginButtonColor: '#1a4568',
     lightGray: '#dedede',
-
-    lightBlue: '#5f84a1',
-    darkBlue: '#1a4568',
+    darkGray: '#6d6d6d',
+    lightBlue: '#f2f5f9',
+    darkBlue: '#055c87',
+    darkerBlue: '#003e72',
     strongBlue: '#378acd',
     yellow: '#fddA0d',
 };

@@ -12,10 +12,11 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${Colors.offWhite};
-    border: solid 2px ${Colors.offBlack};
+    border: solid 1px ${Colors.offBlack};
     border-radius: 8px;
     transition-property: left, top, width, height;
     transition-duration: 150ms;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 `;
 
 const Title = styled.h1`

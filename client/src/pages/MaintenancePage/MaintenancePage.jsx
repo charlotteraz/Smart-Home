@@ -9,35 +9,45 @@ import RoomStateCard from './components/RoomStateCard';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 80%;
+    height: 100%;
+    padding: 15px 0;
     align-self: center;
-    margin-top: 40px;
-    padding-bottom: 40px;
+    margin-top: 30px;
 `;
 
 const GridContainer = styled.div`
-    background-color: ${Colors.darkBlue};
-    width: 100%;
-    border-radius: 10px;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    // Add fade-in animation to allow Floor Plan view to center
+    opacity: 0;
+    animation: fadeIn 500ms ease-in-out 100ms forwards;
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;
 
 const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px;
+    gap: 35px;
     padding: 25px;
     align-self: center;
     box-sizing: border-box;
-    background-color: ${Colors.darkBlue};
     border-radius: 12px;
 `;
 
 const Title = styled.h1`
-    font-family: ${Fonts.titleFont};
-    text-align: center;
+    margin: 0 25px;
     font-weight: 400;
-    font-size: 40px;
     color: ${Colors.darkBlue};
+    font-family: ${Fonts.titleFont};
 `;
 
 const Error = styled.h2`

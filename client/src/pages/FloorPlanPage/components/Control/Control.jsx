@@ -10,20 +10,21 @@ const Container = styled.div`
     right: 0;
     justify-content: center;
     align-items: center;
-    width: 65px;
-    height: 100px;
+    width: 55px;
+    height: 75px;
     background-color: ${Colors.offBlack};
-    border: 2px solid ${Colors.offWhite};
+    border: 
     border-bottom-left-radius: 10px;
-    border-style: none none solid solid;
     padding: 15px;
     z-index: 1;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 1);
 `;
 
 const ZoomButton = styled(Button)`
-    width: 50px;
+    width: 40px;
     aspect-ratio: 1;
-    font-size: 18pt;
+    font-size: 16pt;
+    margin: 5px;
     font-weight: bold;
     background-color: ${Colors.offWhite};
     color: ${Colors.offBlack};
