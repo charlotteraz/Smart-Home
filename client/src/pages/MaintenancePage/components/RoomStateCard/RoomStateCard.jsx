@@ -5,6 +5,9 @@ import { Strut } from 'components/Layout';
 import Colors from 'constants/colors';
 import Fonts from 'constants/fonts';
 import { useRooms } from 'contexts/RoomsContext';
+import Debug from 'util/debug';
+import useRequest from 'hooks/useRequest';
+import URLS from 'constants/urls';
 import HVACStateField from '../HVACStateField';
 
 const Container = styled.div`
@@ -33,27 +36,39 @@ const Title = styled.h1`
 const RoomStateCard = (props) => {
     const { roomId, name, devices } = props;
     const { updateDevice } = useRooms();
+    const request = useRequest();
 
-    const handleStateChange = (deviceId, state) => {
-        // TODO: Make POST request to change device state
-        // Note: The POST request should return updated device object
-        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
-        if (!targetDevice) {
-            return;
+    const handleStateChange = async (deviceId, state) => {
+        try {
+            await request.post(URLS.devices, {
+                deviceId,
+                state,
+            });
+            const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+            if (!targetDevice) {
+                return;
+            }
+            targetDevice.state = state;
+            updateDevice(roomId, deviceId, targetDevice);
+        } catch (errMessage) {
+            Debug.log(errMessage);
         }
-        targetDevice.state = state;
-        updateDevice(roomId, deviceId, targetDevice);
     };
 
-    const handleTempChange = (deviceId, temp) => {
-        // TODO: Make POST request to change device state
-        // Note: The POST request should return updated device object
-        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
-        if (!targetDevice) {
-            return;
+    const handleTempChange = async (deviceId, temp) => {
+        try {
+            await request.post(URLS.hvac, {
+                temp,
+            });
+            const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+            if (!targetDevice) {
+                return;
+            }
+            targetDevice.temp = temp;
+            updateDevice(roomId, deviceId, targetDevice);
+        } catch (errMessage) {
+            Debug.log(errMessage);
         }
-        targetDevice.temp = temp;
-        updateDevice(roomId, deviceId, targetDevice);
     };
 
     return (

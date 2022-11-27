@@ -2,6 +2,9 @@ import React, { useState, useMemo } from 'react';
 import Colors from 'constants/colors';
 import { useRooms } from 'contexts/RoomsContext';
 import styled from 'styled-components';
+import Debug from 'util/debug';
+import useRequest from 'hooks/useRequest';
+import URLS from 'constants/urls';
 import Device from '../Device';
 import DeviceStateModal from '../DeviceStateModal';
 import HVACStateModal from '../HVACStateModal';
@@ -27,6 +30,7 @@ const Title = styled.h1`
 const Room = (props) => {
     const { roomId, name, x, y, width, height, devices, scale = 1.0 } = props;
     const { updateDevice } = useRooms();
+    const request = useRequest();
     const [modalDeviceId, setModalDeviceId] = useState(null);
 
     const modalDevice = useMemo(() => {
@@ -36,26 +40,37 @@ const Room = (props) => {
         return devices.find((device) => device.deviceId === modalDeviceId) ?? null;
     }, [modalDeviceId]);
 
-    const handleDeviceStateChange = (deviceId, state) => {
-        // TODO: Make POST request to change device state
-        // Note: The POST request should return updated device object
-        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
-        if (!targetDevice) {
-            return;
+    const handleDeviceStateChange = async (deviceId, state) => {
+        try {
+            await request.post(URLS.devices, {
+                deviceId,
+                state,
+            });
+            const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+            if (!targetDevice) {
+                return;
+            }
+            targetDevice.state = state;
+            updateDevice(roomId, deviceId, targetDevice);
+        } catch (errMessage) {
+            Debug.log(errMessage);
         }
-        targetDevice.state = state;
-        updateDevice(roomId, deviceId, targetDevice);
     };
 
-    const handleDeviceTempChange = (deviceId, temp) => {
-        // TODO: Make POST request to change device state
-        // Note: The POST request should return updated device object
-        const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
-        if (!targetDevice) {
-            return;
+    const handleDeviceTempChange = async (deviceId, temp) => {
+        try {
+            await request.post(URLS.hvac, {
+                temp,
+            });
+            const targetDevice = devices.find((dev) => dev.deviceId === deviceId);
+            if (!targetDevice) {
+                return;
+            }
+            targetDevice.temp = temp;
+            updateDevice(roomId, deviceId, targetDevice);
+        } catch (errMessage) {
+            Debug.log(errMessage);
         }
-        targetDevice.temp = temp;
-        updateDevice(roomId, deviceId, targetDevice);
     };
 
     return (
@@ -117,8 +132,8 @@ const Room = (props) => {
                         name={modalDevice.name}
                         temp={modalDevice.temp ?? 0}
                         onTempChange={(temp) => handleDeviceTempChange(modalDeviceId, temp)}
-                        externalTemp={0}
-                        internalTemp={0}
+                        externalTemp={modalDevice.external}
+                        internalTemp={modalDevice.internal}
                         onClose={() => setModalDeviceId(null)}
                     />
                 ) : (

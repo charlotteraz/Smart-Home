@@ -28,14 +28,17 @@ const LineChart = (props) => {
         xDataKey,
         xLabel,
         yDataKey,
+        xTickFormatter,
         yLabel,
         yUnit,
+        yTickFormatter,
         margin,
         lineStroke,
         shadow,
         lineStrokeWidth,
         gridStroke,
         gridStrokeDasharray,
+        tooltipFormatter,
     } = props;
 
     const getCalculatedMargin = () => {
@@ -92,6 +95,7 @@ const LineChart = (props) => {
                               }
                             : {}
                     }
+                    tickFormatter={xTickFormatter}
                 />
                 <YAxis
                     stroke={tableColor ?? Colors.offBlack}
@@ -106,8 +110,9 @@ const LineChart = (props) => {
                               }
                             : {}
                     }
+                    tickFormatter={yTickFormatter}
                 />
-                <Tooltip itemStyle={{ color: Colors.black }} />
+                <Tooltip itemStyle={{ color: Colors.black }} formatter={tooltipFormatter} />
             </Chart>
         </Container>
     );
