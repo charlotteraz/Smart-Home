@@ -120,10 +120,9 @@ class get_electricity(Resource):
             entry_dict = {}
             entry_dict['entryId'] = entry[0]
             entry_dict['deviceId'] = entry[1]
-            entry_dict['name'] = entry[2]
-            entry_dict['date'] = entry[3]
-            entry_dict['usage'] = entry[4]
-            entry_dict['cost'] = entry[5]
+            entry_dict['date'] = entry[2]
+            entry_dict['usage'] = entry[3]
+            entry_dict['cost'] = entry[4]
             entry_list.append(entry_dict)
         return jsonify(entry_list)
 
@@ -138,10 +137,9 @@ class get_water(Resource):
             entry_dict = {}
             entry_dict['entryId'] = entry[0]
             entry_dict['deviceId'] = entry[1]
-            entry_dict['name'] = entry[2]
-            entry_dict['date'] = entry[3]
-            entry_dict['usage'] = entry[4]
-            entry_dict['cost'] = entry[5]
+            entry_dict['date'] = entry[2]
+            entry_dict['usage'] = entry[3]
+            entry_dict['cost'] = entry[4]
             entry_list.append(entry_dict)
         return jsonify(entry_list)
 
