@@ -211,9 +211,9 @@ const UsageDataPage = () => {
                 data={combinedElectricityWater}
                 columns={[
                     { Header: 'Date', accessor: 'formattedDate' },
-                    { Header: 'Electricity Wattage', accessor: 'formattedElectricityUsage' },
+                    { Header: 'Electricity (watts)', accessor: 'formattedElectricityUsage' },
                     { Header: 'Electricity Cost', accessor: 'formattedElectricityCost' },
-                    { Header: 'Water Volume', accessor: 'formattedWaterUsage' },
+                    { Header: 'Water (cubic meters)', accessor: 'formattedWaterUsage' },
                     { Header: 'Water Cost', accessor: 'formattedWaterCost' },
                 ]}
             />
